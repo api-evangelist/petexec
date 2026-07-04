@@ -1,0 +1,1290 @@
+openapi: 3.0.3
+info:
+  title: PetExec API
+  description: >-
+    The PetExec API is a REST API for existing PetExec customers and their
+    developers to extend the PetExec pet-care business management platform
+    (daycare, boarding, grooming, training, and scheduled services). Every
+    endpoint, path, and scope in this document is transcribed directly from
+    PetExec's own public GitHub examples repository
+    (https://github.com/PetExec/API-Examples), which is the only complete
+    source of PetExec API technical detail publicly available - PetExec's
+    interactive apidoc reference at
+    https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered
+    single-page app and does not expose a machine-readable spec. Access
+    requires an active PetExec account. Client credentials (client_id /
+    client_secret) are self-issued from Company Preferences > Misc. Settings >
+    Maintain API Applications inside the PetExec console, then exchanged for a
+    scoped Bearer token via an OAuth2 Resource Owner Password Credentials
+    (password) grant against POST /token. PetExec was acquired by Togetherwork
+    in November 2024 and is being migrated toward Gingr; PetExec is no longer
+    accepting new customers, but this API surface is documented as live for
+    existing accounts as of the review date. Some of PetExec's own published
+    examples are internally inconsistent (mixed "user-card" / "userCard"
+    casing, a menu example that appears to call the wrong path) - those
+    inconsistencies are called out inline below rather than silently
+    corrected.
+  version: '1.0'
+  contact:
+    name: PetExec
+    url: https://www.petexec.net/features/api-for-developers
+servers:
+  - url: https://secure.petexec.net/api
+    description: PetExec production API (used by nearly all official PHP and most JavaScript examples)
+  - url: https://beta.petexec.net/api
+    description: PetExec beta/staging API (referenced by some official JavaScript examples for the same paths; not separately documented)
+security:
+  - bearerAuth: []
+tags:
+  - name: Authentication
+    description: OAuth2 password-grant token issuance.
+  - name: Owners
+    description: Owner (pet parent) account records and search.
+  - name: Pets
+    description: Pet profiles, pet types, breeds, and vets.
+  - name: Boarding
+    description: Boarding reservations, packages, and services.
+  - name: Daycare
+    description: Daycare reservations and services.
+  - name: Grooming
+    description: Grooming reservations, groomers, and services.
+  - name: Scheduled Services
+    description: Scheduled-service reservations, types, and services.
+  - name: Calendar
+    description: Company-wide and per-owner reservation calendars by date range.
+  - name: Vaccinations
+    description: Pet vaccination (shot) records.
+  - name: Credit Cards
+    description: Owner stored payment cards.
+  - name: Purchase History
+    description: Owner purchase/transaction history.
+  - name: Reports
+    description: Billing and statistics reports.
+  - name: Company
+    description: Company locations, employees, lead sources, and preferences.
+  - name: Profile
+    description: The authenticated user's own profile and portal menu.
+paths:
+  /token:
+    post:
+      operationId: getAccessToken
+      tags:
+        - Authentication
+      summary: Obtain an access token (password grant)
+      description: >-
+        Exchanges a PetExec username/password plus a client_id/client_secret
+        (sent as an HTTP Basic Authorization header) for a scoped Bearer
+        access token. `scope` is a space-separated list, e.g.
+        "owner_read owner_update". Public clients (e.g. browser JavaScript)
+        should not expose client_secret.
+      security: []
+      parameters:
+        - name: Authorization
+          in: header
+          required: true
+          description: 'Basic base64(client_id:client_secret)'
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - grant_type
+                - username
+                - password
+              properties:
+                grant_type:
+                  type: string
+                  enum: [password]
+                username:
+                  type: string
+                password:
+                  type: string
+                scope:
+                  type: string
+                  description: Space-separated list of requested scopes (e.g. owner_read, owner_update, usercard_read, menu_read, report_read).
+      responses:
+        '200':
+          description: Access token issued.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /owner:
+    get:
+      operationId: listOwners
+      tags:
+        - Owners
+      summary: List active owners
+      description: Returns all active owner (pet parent) accounts. Requires the owner_read scope.
+      responses:
+        '200':
+          description: A list of owners.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Owner'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /owner/{owner_id}:
+    parameters:
+      - $ref: '#/components/parameters/OwnerId'
+    get:
+      operationId: getOwner
+      tags:
+        - Owners
+      summary: Get owner information
+      description: Retrieves a single owner's account information. Requires the owner_read scope.
+      responses:
+        '200':
+          description: The requested owner.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Owner'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /search/owners/{search_criteria}/page/{page_number}/data/{data_per_page}:
+    get:
+      operationId: searchOwners
+      tags:
+        - Owners
+      summary: Search owners
+      description: Keyword search across owners, paginated.
+      parameters:
+        - name: search_criteria
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/DataPerPage'
+      responses:
+        '200':
+          description: A page of matching owners.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Owner'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /pet/{pet_id}:
+    parameters:
+      - $ref: '#/components/parameters/PetId'
+    get:
+      operationId: getPet
+      tags:
+        - Pets
+      summary: Get pet information
+      description: Retrieves a single pet profile.
+      responses:
+        '200':
+          description: The requested pet.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deletePet
+      tags:
+        - Pets
+      summary: Delete a pet
+      description: Deletes a pet profile.
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /pet-type/:
+    get:
+      operationId: listPetTypes
+      tags:
+        - Pets
+      summary: List pet types
+      description: Lists the pet types configured for the company (e.g. Dog, Cat).
+      responses:
+        '200':
+          description: A list of pet types.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PetType'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /breed/pet-type/{pet_type_id}:
+    get:
+      operationId: listBreedsForPetType
+      tags:
+        - Pets
+      summary: List breeds for a pet type
+      description: >-
+        Lists breeds available for a given pet type. Note: the official
+        example (JavaScript/pet_breed/get_pet_breed.js) names its path
+        variable "petid" but uses it as a pet-type identifier; documented here
+        as pet_type_id for clarity.
+      parameters:
+        - name: pet_type_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of breeds.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Breed'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /search/pets/{search_criteria}/page/{page_number}/data/{data_per_page}:
+    get:
+      operationId: searchPets
+      tags:
+        - Pets
+      summary: Search pets
+      description: Keyword search across pets, paginated.
+      parameters:
+        - name: search_criteria
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/PageNumber'
+        - $ref: '#/components/parameters/DataPerPage'
+      responses:
+        '200':
+          description: A page of matching pets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /vet/:
+    get:
+      operationId: listVets
+      tags:
+        - Pets
+      summary: List vets
+      description: Lists the veterinarians recorded for the company's pets.
+      responses:
+        '200':
+          description: A list of vets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vet'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /boarding/{boarding_id}:
+    parameters:
+      - $ref: '#/components/parameters/BoardingId'
+    get:
+      operationId: getBoarding
+      tags:
+        - Boarding
+      summary: Get a boarding reservation
+      responses:
+        '200':
+          description: The requested boarding reservation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFutureBoarding
+      tags:
+        - Boarding
+      summary: Delete a future boarding reservation
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /boarding/packages/owner/{owner_id}:
+    get:
+      operationId: getOwnerBoardingPackages
+      tags:
+        - Boarding
+      summary: Get an owner's boarding packages
+      parameters:
+        - $ref: '#/components/parameters/OwnerId'
+      responses:
+        '200':
+          description: The owner's boarding packages.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BoardingPackage'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /boarding/services:
+    get:
+      operationId: listBoardingServices
+      tags:
+        - Boarding
+      summary: List boarding services
+      responses:
+        '200':
+          description: A list of boarding services.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /daycare/{daycare_id}:
+    parameters:
+      - $ref: '#/components/parameters/DaycareId'
+    get:
+      operationId: getDaycare
+      tags:
+        - Daycare
+      summary: Get a daycare reservation
+      responses:
+        '200':
+          description: The requested daycare reservation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFutureDaycare
+      tags:
+        - Daycare
+      summary: Delete a future daycare reservation
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /daycare/services/:
+    get:
+      operationId: listDaycareServices
+      tags:
+        - Daycare
+      summary: List daycare and lunch services
+      responses:
+        '200':
+          description: A list of daycare services.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /grooming/{grooming_id}:
+    parameters:
+      - $ref: '#/components/parameters/GroomingId'
+    get:
+      operationId: getGrooming
+      tags:
+        - Grooming
+      summary: Get a grooming reservation
+      responses:
+        '200':
+          description: The requested grooming reservation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFutureGrooming
+      tags:
+        - Grooming
+      summary: Delete a future grooming reservation
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /grooming/groomers:
+    get:
+      operationId: listGroomers
+      tags:
+        - Grooming
+      summary: List company groomers
+      responses:
+        '200':
+          description: A list of groomers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /grooming/services/:
+    get:
+      operationId: listGroomingServices
+      tags:
+        - Grooming
+      summary: List grooming services
+      responses:
+        '200':
+          description: A list of grooming services.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduled-service/{scheduled_service_id}:
+    delete:
+      operationId: deleteFutureScheduledService
+      tags:
+        - Scheduled Services
+      summary: Delete a future scheduled service
+      parameters:
+        - name: scheduled_service_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /scheduled-service/service-types/:
+    get:
+      operationId: listScheduledServiceTypes
+      tags:
+        - Scheduled Services
+      summary: List scheduled-service types
+      responses:
+        '200':
+          description: A list of scheduled-service types.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ServiceType'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduled-service/services/:
+    get:
+      operationId: listScheduledServices
+      tags:
+        - Scheduled Services
+      summary: List scheduled-service types and services
+      responses:
+        '200':
+          description: A list of scheduled services.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduled-service/services/{service_type_id}:
+    get:
+      operationId: listServicesByServiceType
+      tags:
+        - Scheduled Services
+      summary: List services for a scheduled-service type
+      parameters:
+        - name: service_type_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of services for the given type.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/boarding/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getCompanyBoardingsScheduled
+      tags:
+        - Calendar
+      summary: Get company boardings scheduled in a date range
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Scheduled boardings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/daycare/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getCompanyDaycaresScheduled
+      tags:
+        - Calendar
+      summary: Get company daycares scheduled in a date range
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Scheduled daycares.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/grooming/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getCompanyGroomingsScheduled
+      tags:
+        - Calendar
+      summary: Get company groomings scheduled in a date range
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Scheduled groomings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/scheduled-service/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getCompanyScheduledServicesScheduled
+      tags:
+        - Calendar
+      summary: Get company scheduled services scheduled in a date range
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Scheduled services.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/owner/{owner_id}/boarding/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getOwnerBoardingsScheduled
+      tags:
+        - Calendar
+      summary: Get an owner's boardings scheduled in a date range
+      parameters:
+        - $ref: '#/components/parameters/OwnerId'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: The owner's scheduled boardings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/owner/{owner_id}/daycare/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getOwnerDaycaresScheduled
+      tags:
+        - Calendar
+      summary: Get an owner's daycares scheduled in a date range
+      parameters:
+        - $ref: '#/components/parameters/OwnerId'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: The owner's scheduled daycares.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/owner/{owner_id}/grooming/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getOwnerGroomingsScheduled
+      tags:
+        - Calendar
+      summary: Get an owner's groomings scheduled in a date range
+      parameters:
+        - $ref: '#/components/parameters/OwnerId'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: The owner's scheduled groomings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/owner/{owner_id}/scheduled-service/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getOwnerScheduledServicesScheduled
+      tags:
+        - Calendar
+      summary: Get an owner's scheduled services scheduled in a date range
+      parameters:
+        - $ref: '#/components/parameters/OwnerId'
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: The owner's scheduled services.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /shot/{shot_id}:
+    parameters:
+      - name: shot_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: getShot
+      tags:
+        - Vaccinations
+      summary: Get a vaccination (shot) record
+      responses:
+        '200':
+          description: The requested shot record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shot'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteShot
+      tags:
+        - Vaccinations
+      summary: Delete a vaccination (shot) record
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /shot/pet-type/{pet_id}:
+    get:
+      operationId: getShotsForPetType
+      tags:
+        - Vaccinations
+      summary: Get all shots for a selected pet type
+      parameters:
+        - $ref: '#/components/parameters/PetId'
+      responses:
+        '200':
+          description: A list of shots configured for the pet type.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Shot'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user-card/owner/{owner_id}:
+    get:
+      operationId: getOwnerCreditCards
+      tags:
+        - Credit Cards
+      summary: Get all credit cards for an owner
+      description: >-
+        Requires the usercard_read scope. PetExec's own examples are
+        inconsistent between "user-card" (this GET) and "userCard" (used by
+        the delete example below); both forms appear in the official
+        API-Examples repository.
+      parameters:
+        - $ref: '#/components/parameters/OwnerId'
+      responses:
+        '200':
+          description: A list of the owner's stored credit cards.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditCard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user-card/{card_id}/owner/{owner_id}:
+    get:
+      operationId: getOwnerCreditCard
+      tags:
+        - Credit Cards
+      summary: Get a single credit card for an owner
+      parameters:
+        - name: card_id
+          in: path
+          required: true
+          schema:
+            type: string
+        - $ref: '#/components/parameters/OwnerId'
+      responses:
+        '200':
+          description: The requested credit card.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditCard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /userCard/{card_id}:
+    delete:
+      operationId: deleteCreditCard
+      tags:
+        - Credit Cards
+      summary: Delete a credit card
+      parameters:
+        - name: card_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /purchase-history/owner/{owner_id}:
+    get:
+      operationId: getPurchaseHistory
+      tags:
+        - Purchase History
+      summary: Get an owner's purchase history
+      parameters:
+        - $ref: '#/components/parameters/OwnerId'
+      responses:
+        '200':
+          description: The owner's purchase history.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PurchaseHistoryEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /report/billing-report/{start_date}/{end_date}/{pay_type}/{owner_portal}:
+    get:
+      operationId: getBillingReport
+      tags:
+        - Reports
+      summary: Get a billing report
+      description: Requires the report_read scope.
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: pay_type
+          in: path
+          required: true
+          description: >-
+            All Types, Cash, Check, Credit, Clover Mini, Gift Certificate, No
+            Payment, Paw Point Redemption, Refund, Tradeout, or Unprocessed.
+          schema:
+            type: string
+        - name: owner_portal
+          in: path
+          required: true
+          description: 'yes or no'
+          schema:
+            type: string
+            enum: [yes, 'no']
+      responses:
+        '200':
+          description: The billing report.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /report/statistics-report/{start_date}/{end_date}/{taxable_only}:
+    get:
+      operationId: getStatisticsReport
+      tags:
+        - Reports
+      summary: Get a statistics report
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: taxable_only
+          in: path
+          required: true
+          description: 'yes or no'
+          schema:
+            type: string
+            enum: [yes, 'no']
+      responses:
+        '200':
+          description: The statistics report.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /report/statistics-report/{start_date}/{end_date}/breakdown/{pay_type}:
+    get:
+      operationId: getStatisticsReportByPayType
+      tags:
+        - Reports
+      summary: Get a statistics report broken down by payment type
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: pay_type
+          in: path
+          required: true
+          description: >-
+            Cash, Check, Credit, Clover Mini, Tradeout, Refund, No Payment,
+            Gift Certificate, Paw Point Redemption, Not Processed, Discount,
+            Tax, or Tip / Gratuity.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The statistics report broken down by payment type.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /report/statistics-report/{start_date}/{end_date}/breakdown/service/{service_id}:
+    get:
+      operationId: getStatisticsReportByServiceType
+      tags:
+        - Reports
+      summary: Get a statistics report broken down by service
+      parameters:
+        - $ref: '#/components/parameters/StartDate'
+        - $ref: '#/components/parameters/EndDate'
+        - name: service_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The statistics report broken down by service.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /company/locations:
+    get:
+      operationId: getCompanyLocations
+      tags:
+        - Company
+      summary: Get company locations
+      responses:
+        '200':
+          description: A list of company locations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /company/employees/:
+    get:
+      operationId: getCompanyEmployees
+      tags:
+        - Company
+      summary: Get company employees
+      responses:
+        '200':
+          description: A list of company employees.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /company/how-found/:
+    get:
+      operationId: getAllHowFound
+      tags:
+        - Company
+      summary: Get all "how found" lead sources
+      responses:
+        '200':
+          description: A list of configured lead sources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /preference:
+    get:
+      operationId: getAllCompanyPreferences
+      tags:
+        - Company
+      summary: Get all company preferences
+      responses:
+        '200':
+          description: All named company preference values.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /preference/{preference_name}:
+    get:
+      operationId: getCompanyPreferenceValue
+      tags:
+        - Company
+      summary: Get a single company preference value
+      description: The preference name is URI-encoded (e.g. "Order%20Dashboard%20Notes").
+      parameters:
+        - name: preference_name
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The requested preference value.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /profile/:
+    get:
+      operationId: getAuthenticatedUserProfile
+      tags:
+        - Profile
+      summary: Get the authenticated user's profile
+      responses:
+        '200':
+          description: The authenticated user's profile.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /menu:
+    get:
+      operationId: getMenu
+      tags:
+        - Profile
+      summary: Get the owner-portal menu for the authenticated user
+      description: >-
+        Requires the menu_read scope. Confirmed via the official
+        PHP-Guzzle/Menu/get_menu.php example; the parallel JavaScript example
+        (JavaScript/Menu/get_menu_for_authenticated_user.js) appears to be a
+        copy/paste error in PetExec's own repo - it calls GET /owner/{ownerid}
+        instead.
+      responses:
+        '200':
+          description: The authenticated user's portal menu.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >-
+        OAuth2 password-grant access token obtained from POST /token. Passed
+        as `Authorization: Bearer YOUR_ACCESS_TOKEN`.
+  parameters:
+    OwnerId:
+      name: owner_id
+      in: path
+      required: true
+      description: The PetExec owner (pet parent) ID.
+      schema:
+        type: string
+    PetId:
+      name: pet_id
+      in: path
+      required: true
+      description: The PetExec pet ID.
+      schema:
+        type: string
+    BoardingId:
+      name: boarding_id
+      in: path
+      required: true
+      schema:
+        type: string
+    DaycareId:
+      name: daycare_id
+      in: path
+      required: true
+      schema:
+        type: string
+    GroomingId:
+      name: grooming_id
+      in: path
+      required: true
+      schema:
+        type: string
+    PageNumber:
+      name: page_number
+      in: path
+      required: true
+      description: Page number of search results.
+      schema:
+        type: integer
+    DataPerPage:
+      name: data_per_page
+      in: path
+      required: true
+      description: Number of entries per page.
+      schema:
+        type: integer
+    StartDate:
+      name: start_date
+      in: path
+      required: true
+      description: 'yyyy-mm-dd'
+      schema:
+        type: string
+        format: date
+    EndDate:
+      name: end_date
+      in: path
+      required: true
+      description: 'yyyy-mm-dd'
+      schema:
+        type: string
+        format: date
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      additionalProperties: true
+    TokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          type: integer
+        scope:
+          type: string
+    DeleteResponse:
+      type: object
+      additionalProperties: true
+    Owner:
+      type: object
+      description: >-
+        Field-level schema is not published by PetExec; shape inferred only
+        from the fact that examples key on an owner ID and are requested under
+        the owner_read/owner_update scopes.
+      properties:
+        ownerid:
+          type: string
+      additionalProperties: true
+    Pet:
+      type: object
+      properties:
+        petid:
+          type: string
+      additionalProperties: true
+    PetType:
+      type: object
+      additionalProperties: true
+    Breed:
+      type: object
+      additionalProperties: true
+    Vet:
+      type: object
+      additionalProperties: true
+    Reservation:
+      type: object
+      additionalProperties: true
+    BoardingPackage:
+      type: object
+      additionalProperties: true
+    Service:
+      type: object
+      additionalProperties: true
+    ServiceType:
+      type: object
+      additionalProperties: true
+    Employee:
+      type: object
+      additionalProperties: true
+    Shot:
+      type: object
+      additionalProperties: true
+    CreditCard:
+      type: object
+      additionalProperties: true
+    PurchaseHistoryEntry:
+      type: object
+      additionalProperties: true
+    Location:
+      type: object
+      additionalProperties: true

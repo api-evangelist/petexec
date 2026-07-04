@@ -1,0 +1,70 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: PetExec
+providerId: petexec
+created: '2026-07-04'
+modified: '2026-07-04'
+reconciled: false
+tags:
+- Pet Care
+- Boarding
+- Daycare
+- Grooming
+- Rate Limiting
+description: >-
+  PetExec does not publish any numeric request-rate limits, throttling
+  behavior, or 429 policy for its API in the public GitHub examples
+  repository or on petexec.net. The only access-control mechanism documented
+  is OAuth2 scoping (e.g. owner_read, owner_update, usercard_read, menu_read,
+  report_read) requested per access token via the password grant against
+  POST /token - narrower scopes limit what a token can call, but nothing in
+  the public material describes a request-per-minute or request-per-day cap.
+notes: >-
+  Absence of published limits is not evidence of an unthrottled API - treat
+  it as undocumented. Implement conservative client-side pacing and
+  exponential backoff regardless, and confirm current limits directly with
+  PetExec/Gingr before building production volume against this API.
+sources:
+- https://github.com/PetExec/API-Examples
+- https://www.petexec.net/features/api-for-developers
+- https://secure.petexec.net/api/apidoc/index.html
+responseCodes:
+  throttled: not documented
+limits:
+- name: API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No numeric rate limit is documented anywhere in PetExec's public API materials.
+- name: OAuth2 Scopes
+  scope: token
+  metric: scope
+  limit: per requested scope
+  notes: >-
+    Access is bounded by the space-separated scopes requested at token time
+    (e.g. owner_read, owner_update, usercard_read, menu_read, report_read),
+    not by a call-volume limit.
+- name: Access Token Lifetime
+  scope: token
+  metric: seconds
+  limit: not published
+  notes: >-
+    The password-grant token response includes an expires_in field in the
+    examples, but PetExec does not publish a standard token lifetime.
+policies:
+- name: Client Credential Handling
+  description: >-
+    Client secrets are self-issued in-app (Company Preferences > Misc.
+    Settings > Maintain API Applications) and should not be embedded in
+    public/browser-side clients; PetExec's own JavaScript examples flag this
+    explicitly but still ship the client_secret variable in client-side code
+    as a placeholder.
+- name: Backoff Strategy
+  description: >-
+    Not specified by PetExec. As a general practice, clients should implement
+    exponential backoff with jitter on 401/5xx responses since no documented
+    429 behavior exists to key off of.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

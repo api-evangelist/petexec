@@ -1,0 +1,108 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: PetExec
+providerId: petexec
+created: '2026-07-04'
+modified: '2026-07-04'
+reconciled: false
+tags:
+- Pet Care
+- Boarding
+- Daycare
+- Grooming
+- Plans
+description: >-
+  PetExec does not publish a public pricing page; pricing is per-facility,
+  quote-based, and gathered here only from third-party software-review
+  aggregators, not from PetExec directly. The API itself carries no separate
+  fee - it is a feature of the underlying software subscription, gated by
+  having an active PetExec account and self-issuing OAuth2 client credentials
+  under Company Preferences. PetExec was acquired by Togetherwork in November
+  2024, is no longer taking new customers, and is steering inquiries toward
+  Gingr, so current published starting prices should be treated as historical
+  rather than an open, ongoing offer.
+notes: >-
+  No plan tier names, feature matrices, or per-facility rates are published by
+  PetExec itself. The one concrete figure found - a "$129/month starting
+  price" - comes from third-party listings (Capterra/GetApp/SoftwareAdvice),
+  not from petexec.net, and predates the Togetherwork acquisition. Contact
+  PetExec/Gingr directly for current terms.
+sources:
+- https://www.capterra.com/p/92864/PetExec/pricing/
+- https://www.getapp.com/industries-software/a/petexec/
+- https://www.softwareadvice.com/pet-grooming/petexec-profile/
+- https://www.petexec.net/payment-processing-rates
+- https://www.petexec.net/resources/business-operations/togetherwork-acquires-petexec
+plans:
+- id: petexec-subscription
+  name: PetExec Facility Subscription
+  type: paid
+  description: >-
+    Quote-based monthly subscription per facility/location, reported by
+    third-party review sites as starting around $129/month for a boarding
+    facility offering grooming. Exact tiers, feature gating, and whether
+    included seats/locations vary by contract are not published by PetExec.
+  entries:
+  - label: Facility Subscription (third-party reported starting price)
+    name: facility_subscription
+    type: flat
+    metric: facility
+    limit: -1
+    timeFrame: month
+    geo: US
+    unit: 1
+    price: reported starting around $129/month (not confirmed by PetExec; contact for a quote)
+    userMultiplied: false
+  elements:
+  - name: Scheduling (Boarding, Daycare, Grooming, Training)
+  - name: Owner Self-Serve Portal
+  - name: Unlimited Texting
+  - name: Reporting
+  - name: API Access (client credentials self-issued in-app)
+- id: petexec-payment-processing
+  name: PetExec Payment Processing
+  type: usage
+  description: >-
+    Separate from the software subscription. PetExec's own payment-processing
+    rates page publishes card-present/card-not-present rates; some existing
+    customers have reported an added ~1% gateway fee since the Togetherwork
+    acquisition. Not part of the API itself, but billed alongside it for
+    payment-related endpoints (e.g. credit card, billing report).
+  entries:
+  - label: Card Processing Rate
+    name: card_processing
+    type: usage
+    metric: transaction
+    limit: -1
+    timeFrame: month
+    geo: US
+    unit: 1
+    price: see https://www.petexec.net/payment-processing-rates (not reconciled here)
+    userMultiplied: false
+  elements:
+  - name: Card-Present Processing
+  - name: Card-Not-Present Processing
+- id: petexec-enterprise
+  name: Custom / Multi-Location
+  type: enterprise
+  description: >-
+    Larger or multi-location pet-care operators are quoted custom terms.
+    Contact PetExec.
+  entries:
+  - label: Custom Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: US
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Multi-Location Rollup
+  - name: Negotiated Terms
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

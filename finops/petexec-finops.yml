@@ -1,0 +1,95 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: PetExec
+providerId: petexec
+created: '2026-07-04'
+modified: '2026-07-04'
+reconciled: false
+tags:
+- Pet Care
+- Boarding
+- Daycare
+- Grooming
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of PetExec spend. PetExec is a flat, quote-based per-facility
+  software subscription (not a metered API product) with a separately billed
+  payment-processing line for card transactions run through the platform. The
+  API itself carries no incremental fee - it rides on the same subscription
+  and processing-fee spend as the rest of the account. Cost visibility is
+  therefore mostly a vendor-management exercise (subscription tier, number of
+  locations/seats, processing volume and rate) rather than a usage-metering
+  exercise. This is doubly true given PetExec's acquisition by Togetherwork
+  and migration path toward Gingr - contract terms are in flux for existing
+  customers.
+notes: >-
+  No FOCUS-aligned usage meters are published by PetExec. The meters below
+  are modeled from the two billed line items reported by customers and
+  third-party sources (subscription + processing), not sourced from a
+  PetExec-published cost/usage report.
+sources:
+- https://www.petexec.net/payment-processing-rates
+- https://www.capterra.com/p/92864/PetExec/pricing/
+- https://www.petexec.net/resources/business-operations/togetherwork-acquires-petexec
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: PetExec
+serviceCategory: Vertical SaaS - Pet Care Business Management
+billingModel:
+  pricingCategory: Flat-Rate + Usage-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: PetExec
+  ServiceCategory: Vertical SaaS - Pet Care Business Management
+  ProviderName: PetExec
+  PublisherName: PetExec
+  InvoiceIssuerName: PetExec
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Flat-Rate
+meters:
+- name: facility_subscription
+  description: Flat monthly per-facility software subscription fee (reported starting around $129/month by third parties; not confirmed by PetExec).
+  unit: facility-months
+  aggregation: sum
+  dimensions:
+  - facility
+  - account
+- name: card_processing_volume
+  description: Card payment volume processed through PetExec, billed at PetExec's published processing rates plus a reported ~1% gateway fee for existing customers.
+  unit: USD
+  aggregation: sum
+  dimensions:
+  - facility
+  - pay_type
+- name: api_usage
+  description: No separate meter - API calls are included in the software subscription; PetExec does not publish or bill on a per-call basis.
+  unit: requests
+  aggregation: sum
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Track subscription tier and per-transaction processing rate together; the API contributes no separate line item to reconcile.
+- name: Allocation
+  description: Allocate subscription and processing cost per facility/location for multi-location operators.
+- name: Optimization
+  description: Watch for the reported post-acquisition ~1% gateway-fee add-on; compare total cost of staying on PetExec versus migrating to Gingr, since PetExec is no longer taking new customers.
+- name: Accountability
+  description: Assign a contract owner to monitor pricing and migration-path changes given the Togetherwork/Gingr transition.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

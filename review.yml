@@ -1,0 +1,150 @@
+aid: petexec
+name: PetExec
+review:
+  question: Does PetExec expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-04'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. PetExec's documented API surface -
+    confirmed end to end via its public GitHub examples repository
+    (github.com/PetExec/API-Examples) - is request/response REST over HTTPS
+    (OAuth2 password grant plus resource endpoints). No server-push transport
+    (WebSocket or Server-Sent Events) appears anywhere in the official
+    examples, the apidoc reference, or the marketing/developer pages, so there
+    is no realtime protocol surface to model.
+findings:
+  summary: |
+    PetExec does not publish a documented public WebSocket API. It does,
+    however, publish a real, working REST API for existing customers: OAuth2
+    Resource Owner Password Credentials (password) grant against
+    POST https://secure.petexec.net/api/token, using client credentials that
+    a facility self-issues from Company Preferences > Misc. Settings >
+    Maintain API Applications inside the PetExec console, then a Bearer token
+    scoped to space-separated permissions (owner_read, owner_update,
+    usercard_read, menu_read, report_read, and similar). PetExec's own public
+    GitHub examples repository (github.com/PetExec/API-Examples, PHP-Guzzle
+    and JavaScript) documents resource endpoints for owners, pets, pet
+    types/breeds, vets, boarding, daycare, grooming, scheduled services,
+    a company/owner calendar, vaccinations (shots), credit cards, purchase
+    history, billing/statistics reports, and company configuration
+    (locations, employees, lead sources, preferences, profile, menu). The
+    interactive reference at
+    https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered
+    apidoc.js site with no accessible machine-readable spec, so the GitHub
+    examples repo is the most complete public source of technical detail and
+    is what this review and the accompanying OpenAPI document are built from.
+  corporateContext: |
+    PetExec was acquired by Togetherwork in November 2024 and joined the
+    Gingr / Revelation Pets pet-care product group. PetExec is no longer
+    accepting new customers and Togetherwork is actively migrating existing
+    PetExec accounts to Gingr (migration webinars, some customers reporting
+    an added ~1% payment gateway fee). The API documented here remains
+    published and referenced from petexec.net as of the review date, but its
+    long-term availability should be treated as uncertain given the ongoing
+    Gingr migration.
+  sourceQualityNote: |
+    PetExec's own official examples repository contains internal
+    inconsistencies that are called out rather than silently smoothed over:
+    some JavaScript examples call https://beta.petexec.net/api instead of
+    https://secure.petexec.net/api for the same endpoints; credit card
+    examples mix "user-card" and "userCard" path casing; and the JavaScript
+    menu example (get_menu_for_authenticated_user.js) calls
+    GET /owner/{ownerid} rather than GET /menu, which appears to be a
+    copy/paste error against the correct PHP example (get_menu.php).
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://secure.petexec.net/api
+      documented: true
+    - protocol: OAuth2 Password Grant
+      scheme: https
+      note: POST /token exchanges client credentials (Basic auth) plus a user's username/password for a scoped Bearer token.
+      documented: true
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in PetExec's developer page, apidoc reference, or public GitHub examples repository as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://secure.petexec.net/api/token
+    - GET    https://secure.petexec.net/api/owner
+    - GET    https://secure.petexec.net/api/owner/{ownerid}
+    - GET    https://secure.petexec.net/api/search/owners/{criteria}/page/{page}/data/{count}
+    - GET    https://secure.petexec.net/api/pet/{petid}
+    - DELETE https://secure.petexec.net/api/pet/{petid}
+    - GET    https://secure.petexec.net/api/pet-type/
+    - GET    https://secure.petexec.net/api/breed/pet-type/{id}
+    - GET    https://secure.petexec.net/api/search/pets/{criteria}/page/{page}/data/{count}
+    - GET    https://secure.petexec.net/api/vet/
+    - GET    https://secure.petexec.net/api/boarding/{id}
+    - DELETE https://secure.petexec.net/api/boarding/{id}
+    - GET    https://secure.petexec.net/api/boarding/packages/owner/{ownerid}
+    - GET    https://secure.petexec.net/api/boarding/services
+    - GET    https://secure.petexec.net/api/daycare/{id}
+    - DELETE https://secure.petexec.net/api/daycare/{id}
+    - GET    https://secure.petexec.net/api/daycare/services/
+    - GET    https://secure.petexec.net/api/grooming/{id}
+    - DELETE https://secure.petexec.net/api/grooming/{id}
+    - GET    https://secure.petexec.net/api/grooming/groomers
+    - GET    https://secure.petexec.net/api/grooming/services/
+    - DELETE https://secure.petexec.net/api/scheduled-service/{id}
+    - GET    https://secure.petexec.net/api/scheduled-service/service-types/
+    - GET    https://secure.petexec.net/api/scheduled-service/services/
+    - GET    https://secure.petexec.net/api/scheduled-service/services/{typeId}
+    - GET    https://secure.petexec.net/api/calendar/boarding/start/{start}/end/{end}
+    - GET    https://secure.petexec.net/api/calendar/daycare/start/{start}/end/{end}
+    - GET    https://secure.petexec.net/api/calendar/grooming/start/{start}/end/{end}
+    - GET    https://secure.petexec.net/api/calendar/scheduled-service/start/{start}/end/{end}
+    - GET    https://secure.petexec.net/api/calendar/owner/{ownerid}/boarding/start/{start}/end/{end}
+    - GET    https://secure.petexec.net/api/calendar/owner/{ownerid}/daycare/start/{start}/end/{end}
+    - GET    https://secure.petexec.net/api/calendar/owner/{ownerid}/grooming/start/{start}/end/{end}
+    - GET    https://secure.petexec.net/api/calendar/owner/{ownerid}/scheduled-service/start/{start}/end/{end}
+    - GET    https://secure.petexec.net/api/shot/{id}
+    - DELETE https://secure.petexec.net/api/shot/{id}
+    - GET    https://secure.petexec.net/api/shot/pet-type/{id}
+    - GET    https://secure.petexec.net/api/user-card/owner/{ownerid}
+    - GET    https://secure.petexec.net/api/user-card/{cardid}/owner/{ownerid}
+    - DELETE https://secure.petexec.net/api/userCard/{cardid}
+    - GET    https://secure.petexec.net/api/purchase-history/owner/{ownerid}
+    - GET    https://secure.petexec.net/api/report/billing-report/{start}/{end}/{payType}/{ownerPortal}
+    - GET    https://secure.petexec.net/api/report/statistics-report/{start}/{end}/{taxableOnly}
+    - GET    https://secure.petexec.net/api/report/statistics-report/{start}/{end}/breakdown/{payType}
+    - GET    https://secure.petexec.net/api/report/statistics-report/{start}/{end}/breakdown/service/{serviceId}
+    - GET    https://secure.petexec.net/api/company/locations
+    - GET    https://secure.petexec.net/api/company/employees/
+    - GET    https://secure.petexec.net/api/company/how-found/
+    - GET    https://secure.petexec.net/api/preference
+    - GET    https://secure.petexec.net/api/preference/{name}
+    - GET    https://secure.petexec.net/api/profile/
+    - GET    https://secure.petexec.net/api/menu
+sources:
+  - url: https://www.petexec.net/features/api-for-developers
+    type: Documentation
+    note: Confirms PetExec publishes "a robust and fully capable API"; credentials created under Company Preferences > Misc. Settings > Maintain API Applications.
+  - url: https://secure.petexec.net/api/apidoc/index.html
+    type: APIReference
+    note: apidoc.js interactive reference; JavaScript-rendered, no static/machine-readable spec exposed to fetch.
+  - url: https://github.com/PetExec/API-Examples
+    type: SourceCode
+    note: Official PetExec-owned repository of PHP-Guzzle and JavaScript examples; primary source for every endpoint, scope, and base URL in this entry.
+  - url: https://docs2.petexec.net/
+    type: Documentation
+    note: General technical documentation portal (release notes, FAQs); no API-specific content found here.
+  - url: https://www.petexec.net/resources/business-operations/togetherwork-acquires-petexec
+    type: Documentation
+    note: Confirms the November 2024 Togetherwork acquisition and PetExec's status within the Gingr/Revelation Pets product group.
+  - url: https://www.prweb.com/releases/togetherwork-acquires-petexec-expanding-its-industry-leading-footprint-in-serving-pet-care-businesses-with-quality-software-and-payments-solutions-302335963.html
+    type: Documentation
+    note: Press release corroborating the acquisition and PetExec no longer taking new customers.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or other server-push protocol surface exists on PetExec's
+    documented API, so no AsyncAPI document was created. apis.yml was built
+    from real endpoints and scopes transcribed out of PetExec's own public
+    GitHub examples repository, organized into eight logical APIs (Owners,
+    Pets, Reservations, Calendar, Services, Vaccinations, Billing & Reports,
+    Company & Account), with an OpenAPI document, Postman collection, and
+    Open Collection generated from that same confirmed endpoint set.

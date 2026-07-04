@@ -1,0 +1,1362 @@
+{
+  "info": {
+    "name": "PetExec API",
+    "description": "The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services). Every endpoint, path, and scope in this document is transcribed directly from PetExec's own public GitHub examples repository (https://github.com/PetExec/API-Examples), which is the only complete source of PetExec API technical detail publicly available - PetExec's interactive apidoc reference at https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered single-page app and does not expose a machine-readable spec. Access requires an active PetExec account. Client credentials (client_id / client_secret) are self-issued from Company Preferences > Misc. Settings > Maintain API Applications inside the PetExec console, then exchanged for a scoped Bearer token via an OAuth2 Resource Owner Password Credentials (password) grant against POST /token. PetExec was acquired by Togetherwork in November 2024 and is being migrated toward Gingr; PetExec is no longer accepting new customers, but this API surface is documented as live for existing accounts as of the review date. Some of PetExec's own published examples are internally inconsistent (mixed \"user-card\" / \"userCard\" casing, a menu example that appears to call the wrong path) - those inconsistencies are called out inline below rather than silently corrected.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://secure.petexec.net/api"
+    },
+    {
+      "key": "access_token",
+      "value": ""
+    }
+  ],
+  "item": [
+    {
+      "name": "Obtain an access token (password grant)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/token",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "token"
+          ]
+        },
+        "description": "Exchanges a PetExec username/password plus a client_id/client_secret (sent as an HTTP Basic Authorization header) for a scoped Bearer access token. `scope` is a space-separated list, e.g. \"owner_read owner_update\". Public clients (e.g. browser JavaScript) should not expose client_secret."
+      },
+      "response": []
+    },
+    {
+      "name": "List active owners",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/owner",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "owner"
+          ]
+        },
+        "description": "Returns all active owner (pet parent) accounts. Requires the owner_read scope."
+      },
+      "response": []
+    },
+    {
+      "name": "Get owner information",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/owner/{ownerid}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "owner",
+            "{ownerid}"
+          ]
+        },
+        "description": "Retrieves a single owner's account information. Requires the owner_read scope."
+      },
+      "response": []
+    },
+    {
+      "name": "Search owners",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/search/owners/{search_criteria}/page/{page_number}/data/{data_per_page}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "search",
+            "owners",
+            "{search_criteria}",
+            "page",
+            "{page_number}",
+            "data",
+            "{data_per_page}"
+          ]
+        },
+        "description": "Keyword search across owners, paginated."
+      },
+      "response": []
+    },
+    {
+      "name": "Get pet information",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/pet/{petid}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pet",
+            "{petid}"
+          ]
+        },
+        "description": "Retrieves a single pet profile."
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a pet",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/pet/{petid}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pet",
+            "{petid}"
+          ]
+        },
+        "description": "Deletes a pet profile."
+      },
+      "response": []
+    },
+    {
+      "name": "List pet types",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/pet-type/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "pet-type"
+          ]
+        },
+        "description": "Lists the pet types configured for the company (e.g. Dog, Cat)."
+      },
+      "response": []
+    },
+    {
+      "name": "List breeds for a pet type",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/breed/pet-type/{pet_type_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "breed",
+            "pet-type",
+            "{pet_type_id}"
+          ]
+        },
+        "description": "Lists breeds available for a given pet type. Note: the official example (JavaScript/pet_breed/get_pet_breed.js) names its path variable \"petid\" but uses it as a pet-type identifier; documented here as pet_type_id for clarity."
+      },
+      "response": []
+    },
+    {
+      "name": "Search pets",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/search/pets/{search_criteria}/page/{page_number}/data/{data_per_page}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "search",
+            "pets",
+            "{search_criteria}",
+            "page",
+            "{page_number}",
+            "data",
+            "{data_per_page}"
+          ]
+        },
+        "description": "Keyword search across pets, paginated."
+      },
+      "response": []
+    },
+    {
+      "name": "List vets",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/vet/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "vet"
+          ]
+        },
+        "description": "Lists the veterinarians recorded for the company's pets."
+      },
+      "response": []
+    },
+    {
+      "name": "Get a boarding reservation",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/boarding/{boarding_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "boarding",
+            "{boarding_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a future boarding reservation",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/boarding/{boarding_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "boarding",
+            "{boarding_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get an owner's boarding packages",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/boarding/packages/owner/{owner_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "boarding",
+            "packages",
+            "owner",
+            "{owner_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "List boarding services",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/boarding/services",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "boarding",
+            "services"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get a daycare reservation",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/daycare/{daycare_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "daycare",
+            "{daycare_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a future daycare reservation",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/daycare/{daycare_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "daycare",
+            "{daycare_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "List daycare and lunch services",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/daycare/services/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "daycare",
+            "services"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get a grooming reservation",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/grooming/{grooming_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "grooming",
+            "{grooming_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a future grooming reservation",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/grooming/{grooming_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "grooming",
+            "{grooming_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "List company groomers",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/grooming/groomers",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "grooming",
+            "groomers"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "List grooming services",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/grooming/services/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "grooming",
+            "services"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a future scheduled service",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/scheduled-service/{scheduled_service_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "scheduled-service",
+            "{scheduled_service_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "List scheduled-service types",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/scheduled-service/service-types/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "scheduled-service",
+            "service-types"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "List scheduled-service types and services",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/scheduled-service/services/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "scheduled-service",
+            "services"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "List services for a scheduled-service type",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/scheduled-service/services/{service_type_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "scheduled-service",
+            "services",
+            "{service_type_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get company boardings scheduled in a date range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/calendar/boarding/start/{start_date}/end/{end_date}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "calendar",
+            "boarding",
+            "start",
+            "{start_date}",
+            "end",
+            "{end_date}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get company daycares scheduled in a date range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/calendar/daycare/start/{start_date}/end/{end_date}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "calendar",
+            "daycare",
+            "start",
+            "{start_date}",
+            "end",
+            "{end_date}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get company groomings scheduled in a date range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/calendar/grooming/start/{start_date}/end/{end_date}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "calendar",
+            "grooming",
+            "start",
+            "{start_date}",
+            "end",
+            "{end_date}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get company scheduled services scheduled in a date range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/calendar/scheduled-service/start/{start_date}/end/{end_date}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "calendar",
+            "scheduled-service",
+            "start",
+            "{start_date}",
+            "end",
+            "{end_date}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get an owner's boardings scheduled in a date range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/calendar/owner/{owner_id}/boarding/start/{start_date}/end/{end_date}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "calendar",
+            "owner",
+            "{owner_id}",
+            "boarding",
+            "start",
+            "{start_date}",
+            "end",
+            "{end_date}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get an owner's daycares scheduled in a date range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/calendar/owner/{owner_id}/daycare/start/{start_date}/end/{end_date}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "calendar",
+            "owner",
+            "{owner_id}",
+            "daycare",
+            "start",
+            "{start_date}",
+            "end",
+            "{end_date}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get an owner's groomings scheduled in a date range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/calendar/owner/{owner_id}/grooming/start/{start_date}/end/{end_date}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "calendar",
+            "owner",
+            "{owner_id}",
+            "grooming",
+            "start",
+            "{start_date}",
+            "end",
+            "{end_date}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get an owner's scheduled services scheduled in a date range",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/calendar/owner/{owner_id}/scheduled-service/start/{start_date}/end/{end_date}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "calendar",
+            "owner",
+            "{owner_id}",
+            "scheduled-service",
+            "start",
+            "{start_date}",
+            "end",
+            "{end_date}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get a vaccination (shot) record",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/shot/{shot_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "shot",
+            "{shot_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a vaccination (shot) record",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/shot/{shot_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "shot",
+            "{shot_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get all shots for a selected pet type",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/shot/pet-type/{pet_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "shot",
+            "pet-type",
+            "{pet_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get all credit cards for an owner",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/user-card/owner/{owner_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "user-card",
+            "owner",
+            "{owner_id}"
+          ]
+        },
+        "description": "Requires the usercard_read scope. PetExec's own examples are inconsistent between \"user-card\" (this GET) and \"userCard\" (used by the delete example below); both forms appear in the official API-Examples repository."
+      },
+      "response": []
+    },
+    {
+      "name": "Get a single credit card for an owner",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/user-card/{card_id}/owner/{owner_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "user-card",
+            "{card_id}",
+            "owner",
+            "{owner_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a credit card",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/userCard/{card_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "userCard",
+            "{card_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get an owner's purchase history",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/purchase-history/owner/{owner_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "purchase-history",
+            "owner",
+            "{owner_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get a billing report",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/report/billing-report/{start_date}/{end_date}/{pay_type}/{owner_portal}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "report",
+            "billing-report",
+            "{start_date}",
+            "{end_date}",
+            "{pay_type}",
+            "{owner_portal}"
+          ]
+        },
+        "description": "Requires the report_read scope."
+      },
+      "response": []
+    },
+    {
+      "name": "Get a statistics report",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/report/statistics-report/{start_date}/{end_date}/{taxable_only}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "report",
+            "statistics-report",
+            "{start_date}",
+            "{end_date}",
+            "{taxable_only}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get a statistics report broken down by payment type",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/report/statistics-report/{start_date}/{end_date}/breakdown/{pay_type}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "report",
+            "statistics-report",
+            "{start_date}",
+            "{end_date}",
+            "breakdown",
+            "{pay_type}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get a statistics report broken down by service",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/report/statistics-report/{start_date}/{end_date}/breakdown/service/{service_id}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "report",
+            "statistics-report",
+            "{start_date}",
+            "{end_date}",
+            "breakdown",
+            "service",
+            "{service_id}"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get company locations",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/company/locations",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "company",
+            "locations"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get company employees",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/company/employees/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "company",
+            "employees"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get all \"how found\" lead sources",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/company/how-found/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "company",
+            "how-found"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get all company preferences",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/preference",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "preference"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get a single company preference value",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/preference/{preference_name}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "preference",
+            "{preference_name}"
+          ]
+        },
+        "description": "The preference name is URI-encoded (e.g. \"Order%20Dashboard%20Notes\")."
+      },
+      "response": []
+    },
+    {
+      "name": "Get the authenticated user's profile",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/profile/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "profile"
+          ]
+        },
+        "description": ""
+      },
+      "response": []
+    },
+    {
+      "name": "Get the owner-portal menu for the authenticated user",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{access_token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "https://secure.petexec.net/api/menu",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "menu"
+          ]
+        },
+        "description": "Requires the menu_read scope. Confirmed via the official PHP-Guzzle/Menu/get_menu.php example; the parallel JavaScript example (JavaScript/Menu/get_menu_for_authenticated_user.js) appears to be a copy/paste error in PetExec's own repo - it calls GET /owner/{ownerid} instead."
+      },
+      "response": []
+    }
+  ]
+}

@@ -1,0 +1,1030 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtain an access token (password grant).",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://secure.petexec.net/api/token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Exchanges a PetExec username/password plus a client_id/client_secret (sent as an HTTP Basic Authorization header) for a scoped Bearer access token. `scope` is a space-separated list, e.g. \"owner_read owner_update\". Public clients (e.g. browser JavaScript) should not expose client_secret."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Owners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List active owners.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/owner"
+          },
+          "docs": "Returns all active owner (pet parent) accounts. Requires the owner_read scope."
+        },
+        {
+          "info": {
+            "name": "Get owner information.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/owner/:ownerid",
+            "params": [
+              {
+                "name": "ownerid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single owner's account information. Requires the owner_read scope."
+        },
+        {
+          "info": {
+            "name": "Search owners.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/search/owners/:search_criteria/page/:page_number/data/:data_per_page",
+            "params": [
+              {
+                "name": "search_criteria",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "data_per_page",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Keyword search across owners, paginated."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Pets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get pet information.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/pet/:petid",
+            "params": [
+              {
+                "name": "petid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieves a single pet profile."
+        },
+        {
+          "info": {
+            "name": "Delete a pet.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/pet/:petid",
+            "params": [
+              {
+                "name": "petid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Deletes a pet profile."
+        },
+        {
+          "info": {
+            "name": "List pet types.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/pet-type/"
+          },
+          "docs": "Lists the pet types configured for the company (e.g. Dog, Cat)."
+        },
+        {
+          "info": {
+            "name": "List breeds for a pet type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/breed/pet-type/:pet_type_id",
+            "params": [
+              {
+                "name": "pet_type_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists breeds available for a given pet type. Note: the official example (JavaScript/pet_breed/get_pet_breed.js) names its path variable \"petid\" but uses it as a pet-type identifier; documented here as pet_type_id for clarity."
+        },
+        {
+          "info": {
+            "name": "Search pets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/search/pets/:search_criteria/page/:page_number/data/:data_per_page",
+            "params": [
+              {
+                "name": "search_criteria",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "data_per_page",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Keyword search across pets, paginated."
+        },
+        {
+          "info": {
+            "name": "List vets.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/vet/"
+          },
+          "docs": "Lists the veterinarians recorded for the company's pets."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Boarding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a boarding reservation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/boarding/:boarding_id",
+            "params": [
+              {
+                "name": "boarding_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Delete a future boarding reservation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/boarding/:boarding_id",
+            "params": [
+              {
+                "name": "boarding_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get an owner's boarding packages.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/boarding/packages/owner/:owner_id",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "List boarding services.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/boarding/services"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Daycare",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a daycare reservation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/daycare/:daycare_id",
+            "params": [
+              {
+                "name": "daycare_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Delete a future daycare reservation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/daycare/:daycare_id",
+            "params": [
+              {
+                "name": "daycare_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "List daycare and lunch services.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/daycare/services/"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Grooming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a grooming reservation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/grooming/:grooming_id",
+            "params": [
+              {
+                "name": "grooming_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Delete a future grooming reservation.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/grooming/:grooming_id",
+            "params": [
+              {
+                "name": "grooming_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "List company groomers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/grooming/groomers"
+          }
+        },
+        {
+          "info": {
+            "name": "List grooming services.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/grooming/services/"
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Scheduled Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete a future scheduled service.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/scheduled-service/:scheduled_service_id",
+            "params": [
+              {
+                "name": "scheduled_service_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "List scheduled-service types.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/scheduled-service/service-types/"
+          }
+        },
+        {
+          "info": {
+            "name": "List scheduled-service types and services.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/scheduled-service/services/"
+          }
+        },
+        {
+          "info": {
+            "name": "List services for a scheduled-service type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/scheduled-service/services/:service_type_id",
+            "params": [
+              {
+                "name": "service_type_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Calendar",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get company boardings scheduled in a date range.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/boarding/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get company daycares scheduled in a date range.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/daycare/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get company groomings scheduled in a date range.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/grooming/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get company scheduled services scheduled in a date range.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/scheduled-service/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get an owner's boardings scheduled in a date range.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/owner/:owner_id/boarding/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get an owner's daycares scheduled in a date range.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/owner/:owner_id/daycare/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get an owner's groomings scheduled in a date range.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/owner/:owner_id/grooming/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get an owner's scheduled services scheduled in a date range.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/owner/:owner_id/scheduled-service/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Vaccinations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a vaccination (shot) record.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/shot/:shot_id",
+            "params": [
+              {
+                "name": "shot_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Delete a vaccination (shot) record.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/shot/:shot_id",
+            "params": [
+              {
+                "name": "shot_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get all shots for a selected pet type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/shot/pet-type/:pet_id",
+            "params": [
+              {
+                "name": "pet_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Credit Cards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all credit cards for an owner.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/user-card/owner/:owner_id",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Requires the usercard_read scope. PetExec's own examples are inconsistent between \"user-card\" (this GET) and \"userCard\" (used by the delete example below); both forms appear in the official API-Examples repository."
+        },
+        {
+          "info": {
+            "name": "Get a single credit card for an owner.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/user-card/:card_id/owner/:owner_id",
+            "params": [
+              {
+                "name": "card_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Delete a credit card.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/userCard/:card_id",
+            "params": [
+              {
+                "name": "card_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Purchase History",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an owner's purchase history.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/purchase-history/owner/:owner_id",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a billing report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/report/billing-report/:start_date/:end_date/:pay_type/:owner_portal",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pay_type",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "owner_portal",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Requires the report_read scope."
+        },
+        {
+          "info": {
+            "name": "Get a statistics report.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/report/statistics-report/:start_date/:end_date/:taxable_only",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "taxable_only",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get a statistics report broken down by payment type.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/report/statistics-report/:start_date/:end_date/breakdown/:pay_type",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "pay_type",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        },
+        {
+          "info": {
+            "name": "Get a statistics report broken down by service.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/report/statistics-report/:start_date/:end_date/breakdown/service/:service_id",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Company",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get company locations.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/company/locations"
+          }
+        },
+        {
+          "info": {
+            "name": "Get company employees.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/company/employees/"
+          }
+        },
+        {
+          "info": {
+            "name": "Get all \"how found\" lead sources.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/company/how-found/"
+          }
+        },
+        {
+          "info": {
+            "name": "Get all company preferences.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/preference"
+          }
+        },
+        {
+          "info": {
+            "name": "Get a single company preference value.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/preference/:preference_name",
+            "params": [
+              {
+                "name": "preference_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "The preference name is URI-encoded (e.g. \"Order%20Dashboard%20Notes\")."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Profile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the authenticated user's profile.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/profile/"
+          }
+        },
+        {
+          "info": {
+            "name": "Get the owner-portal menu for the authenticated user.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/menu"
+          },
+          "docs": "Requires the menu_read scope. Confirmed via the official PHP-Guzzle/Menu/get_menu.php example; the parallel JavaScript example (JavaScript/Menu/get_menu_for_authenticated_user.js) appears to be a copy/paste error in PetExec's own repo - it calls GET /owner/{ownerid} instead."
+        }
+      ]
+    }
+  ]
+}
