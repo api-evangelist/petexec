@@ -1,0 +1,14 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/petexec-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: 'OAuth2 password-grant access token obtained from POST /token. Passed as `Authorization:
+    Bearer YOUR_ACCESS_TOKEN`.'
+  sources:
+  - openapi/petexec-openapi.yml

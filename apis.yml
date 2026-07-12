@@ -182,6 +182,10 @@ apis:
     sources ("how found"), and named preference values - plus the authenticated
     user's own profile and owner-portal menu.
 common:
+- type: DomainSecurity
+  url: security/petexec-domain-security.yml
+- type: Authentication
+  url: authentication/petexec-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/PetExec
 - type: Website
