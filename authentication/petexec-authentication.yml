@@ -9,6 +9,6 @@ schemes:
   type: http
   scheme: bearer
   description: 'OAuth2 password-grant access token obtained from POST /token. Passed as `Authorization:
-    Bearer YOUR_ACCESS_TOKEN`.'
+    Bearer [example key]`.'
   sources:
   - openapi/petexec-openapi.yml
