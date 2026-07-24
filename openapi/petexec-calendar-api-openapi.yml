@@ -1,0 +1,227 @@
+openapi: 3.0.3
+info:
+  title: PetExec Authentication Calendar API
+  description: The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services). Every endpoint, path, and scope in this document is transcribed directly from PetExec's own public GitHub examples repository (https://github.com/PetExec/API-Examples), which is the only complete source of PetExec API technical detail publicly available - PetExec's interactive apidoc reference at https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered single-page app and does not expose a machine-readable spec. Access requires an active PetExec account. Client credentials (client_id / client_secret) are self-issued from Company Preferences > Misc. Settings > Maintain API Applications inside the PetExec console, then exchanged for a scoped Bearer token via an OAuth2 Resource Owner Password Credentials (password) grant against POST /token. PetExec was acquired by Togetherwork in November 2024 and is being migrated toward Gingr; PetExec is no longer accepting new customers, but this API surface is documented as live for existing accounts as of the review date. Some of PetExec's own published examples are internally inconsistent (mixed "user-card" / "userCard" casing, a menu example that appears to call the wrong path) - those inconsistencies are called out inline below rather than silently corrected.
+  version: '1.0'
+  contact:
+    name: PetExec
+    url: https://www.petexec.net/features/api-for-developers
+servers:
+- url: https://secure.petexec.net/api
+  description: PetExec production API (used by nearly all official PHP and most JavaScript examples)
+- url: https://beta.petexec.net/api
+  description: PetExec beta/staging API (referenced by some official JavaScript examples for the same paths; not separately documented)
+security:
+- bearerAuth: []
+tags:
+- name: Calendar
+  description: Company-wide and per-owner reservation calendars by date range.
+paths:
+  /calendar/boarding/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getCompanyBoardingsScheduled
+      tags:
+      - Calendar
+      summary: Get company boardings scheduled in a date range
+      parameters:
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Scheduled boardings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/daycare/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getCompanyDaycaresScheduled
+      tags:
+      - Calendar
+      summary: Get company daycares scheduled in a date range
+      parameters:
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Scheduled daycares.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/grooming/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getCompanyGroomingsScheduled
+      tags:
+      - Calendar
+      summary: Get company groomings scheduled in a date range
+      parameters:
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Scheduled groomings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/scheduled-service/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getCompanyScheduledServicesScheduled
+      tags:
+      - Calendar
+      summary: Get company scheduled services scheduled in a date range
+      parameters:
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: Scheduled services.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/owner/{owner_id}/boarding/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getOwnerBoardingsScheduled
+      tags:
+      - Calendar
+      summary: Get an owner's boardings scheduled in a date range
+      parameters:
+      - $ref: '#/components/parameters/OwnerId'
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: The owner's scheduled boardings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/owner/{owner_id}/daycare/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getOwnerDaycaresScheduled
+      tags:
+      - Calendar
+      summary: Get an owner's daycares scheduled in a date range
+      parameters:
+      - $ref: '#/components/parameters/OwnerId'
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: The owner's scheduled daycares.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/owner/{owner_id}/grooming/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getOwnerGroomingsScheduled
+      tags:
+      - Calendar
+      summary: Get an owner's groomings scheduled in a date range
+      parameters:
+      - $ref: '#/components/parameters/OwnerId'
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: The owner's scheduled groomings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /calendar/owner/{owner_id}/scheduled-service/start/{start_date}/end/{end_date}:
+    get:
+      operationId: getOwnerScheduledServicesScheduled
+      tags:
+      - Calendar
+      summary: Get an owner's scheduled services scheduled in a date range
+      parameters:
+      - $ref: '#/components/parameters/OwnerId'
+      - $ref: '#/components/parameters/StartDate'
+      - $ref: '#/components/parameters/EndDate'
+      responses:
+        '200':
+          description: The owner's scheduled services.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Reservation:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    OwnerId:
+      name: owner_id
+      in: path
+      required: true
+      description: The PetExec owner (pet parent) ID.
+      schema:
+        type: string
+    EndDate:
+      name: end_date
+      in: path
+      required: true
+      description: yyyy-mm-dd
+      schema:
+        type: string
+        format: date
+    StartDate:
+      name: start_date
+      in: path
+      required: true
+      description: yyyy-mm-dd
+      schema:
+        type: string
+        format: date
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 password-grant access token obtained from POST /token. Passed as `Authorization: Bearer YOUR_ACCESS_TOKEN`.'

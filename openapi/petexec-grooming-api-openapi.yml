@@ -1,0 +1,130 @@
+openapi: 3.0.3
+info:
+  title: PetExec Authentication Grooming API
+  description: The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services). Every endpoint, path, and scope in this document is transcribed directly from PetExec's own public GitHub examples repository (https://github.com/PetExec/API-Examples), which is the only complete source of PetExec API technical detail publicly available - PetExec's interactive apidoc reference at https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered single-page app and does not expose a machine-readable spec. Access requires an active PetExec account. Client credentials (client_id / client_secret) are self-issued from Company Preferences > Misc. Settings > Maintain API Applications inside the PetExec console, then exchanged for a scoped Bearer token via an OAuth2 Resource Owner Password Credentials (password) grant against POST /token. PetExec was acquired by Togetherwork in November 2024 and is being migrated toward Gingr; PetExec is no longer accepting new customers, but this API surface is documented as live for existing accounts as of the review date. Some of PetExec's own published examples are internally inconsistent (mixed "user-card" / "userCard" casing, a menu example that appears to call the wrong path) - those inconsistencies are called out inline below rather than silently corrected.
+  version: '1.0'
+  contact:
+    name: PetExec
+    url: https://www.petexec.net/features/api-for-developers
+servers:
+- url: https://secure.petexec.net/api
+  description: PetExec production API (used by nearly all official PHP and most JavaScript examples)
+- url: https://beta.petexec.net/api
+  description: PetExec beta/staging API (referenced by some official JavaScript examples for the same paths; not separately documented)
+security:
+- bearerAuth: []
+tags:
+- name: Grooming
+  description: Grooming reservations, groomers, and services.
+paths:
+  /grooming/{grooming_id}:
+    parameters:
+    - $ref: '#/components/parameters/GroomingId'
+    get:
+      operationId: getGrooming
+      tags:
+      - Grooming
+      summary: Get a grooming reservation
+      responses:
+        '200':
+          description: The requested grooming reservation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteFutureGrooming
+      tags:
+      - Grooming
+      summary: Delete a future grooming reservation
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /grooming/groomers:
+    get:
+      operationId: listGroomers
+      tags:
+      - Grooming
+      summary: List company groomers
+      responses:
+        '200':
+          description: A list of groomers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /grooming/services/:
+    get:
+      operationId: listGroomingServices
+      tags:
+      - Grooming
+      summary: List grooming services
+      responses:
+        '200':
+          description: A list of grooming services.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Reservation:
+      type: object
+      additionalProperties: true
+    DeleteResponse:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
+    Service:
+      type: object
+      additionalProperties: true
+    Employee:
+      type: object
+      additionalProperties: true
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    GroomingId:
+      name: grooming_id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 password-grant access token obtained from POST /token. Passed as `Authorization: Bearer YOUR_ACCESS_TOKEN`.'

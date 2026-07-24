@@ -1,0 +1,141 @@
+openapi: 3.0.3
+info:
+  title: PetExec Authentication Company API
+  description: The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services). Every endpoint, path, and scope in this document is transcribed directly from PetExec's own public GitHub examples repository (https://github.com/PetExec/API-Examples), which is the only complete source of PetExec API technical detail publicly available - PetExec's interactive apidoc reference at https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered single-page app and does not expose a machine-readable spec. Access requires an active PetExec account. Client credentials (client_id / client_secret) are self-issued from Company Preferences > Misc. Settings > Maintain API Applications inside the PetExec console, then exchanged for a scoped Bearer token via an OAuth2 Resource Owner Password Credentials (password) grant against POST /token. PetExec was acquired by Togetherwork in November 2024 and is being migrated toward Gingr; PetExec is no longer accepting new customers, but this API surface is documented as live for existing accounts as of the review date. Some of PetExec's own published examples are internally inconsistent (mixed "user-card" / "userCard" casing, a menu example that appears to call the wrong path) - those inconsistencies are called out inline below rather than silently corrected.
+  version: '1.0'
+  contact:
+    name: PetExec
+    url: https://www.petexec.net/features/api-for-developers
+servers:
+- url: https://secure.petexec.net/api
+  description: PetExec production API (used by nearly all official PHP and most JavaScript examples)
+- url: https://beta.petexec.net/api
+  description: PetExec beta/staging API (referenced by some official JavaScript examples for the same paths; not separately documented)
+security:
+- bearerAuth: []
+tags:
+- name: Company
+  description: Company locations, employees, lead sources, and preferences.
+paths:
+  /company/locations:
+    get:
+      operationId: getCompanyLocations
+      tags:
+      - Company
+      summary: Get company locations
+      responses:
+        '200':
+          description: A list of company locations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /company/employees/:
+    get:
+      operationId: getCompanyEmployees
+      tags:
+      - Company
+      summary: Get company employees
+      responses:
+        '200':
+          description: A list of company employees.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Employee'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /company/how-found/:
+    get:
+      operationId: getAllHowFound
+      tags:
+      - Company
+      summary: Get all "how found" lead sources
+      responses:
+        '200':
+          description: A list of configured lead sources.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /preference:
+    get:
+      operationId: getAllCompanyPreferences
+      tags:
+      - Company
+      summary: Get all company preferences
+      responses:
+        '200':
+          description: All named company preference values.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /preference/{preference_name}:
+    get:
+      operationId: getCompanyPreferenceValue
+      tags:
+      - Company
+      summary: Get a single company preference value
+      description: The preference name is URI-encoded (e.g. "Order%20Dashboard%20Notes").
+      parameters:
+      - name: preference_name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The requested preference value.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      additionalProperties: true
+    Location:
+      type: object
+      additionalProperties: true
+    Employee:
+      type: object
+      additionalProperties: true
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 password-grant access token obtained from POST /token. Passed as `Authorization: Bearer YOUR_ACCESS_TOKEN`.'

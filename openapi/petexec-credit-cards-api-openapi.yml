@@ -1,0 +1,123 @@
+openapi: 3.0.3
+info:
+  title: PetExec Authentication Credit Cards API
+  description: The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services). Every endpoint, path, and scope in this document is transcribed directly from PetExec's own public GitHub examples repository (https://github.com/PetExec/API-Examples), which is the only complete source of PetExec API technical detail publicly available - PetExec's interactive apidoc reference at https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered single-page app and does not expose a machine-readable spec. Access requires an active PetExec account. Client credentials (client_id / client_secret) are self-issued from Company Preferences > Misc. Settings > Maintain API Applications inside the PetExec console, then exchanged for a scoped Bearer token via an OAuth2 Resource Owner Password Credentials (password) grant against POST /token. PetExec was acquired by Togetherwork in November 2024 and is being migrated toward Gingr; PetExec is no longer accepting new customers, but this API surface is documented as live for existing accounts as of the review date. Some of PetExec's own published examples are internally inconsistent (mixed "user-card" / "userCard" casing, a menu example that appears to call the wrong path) - those inconsistencies are called out inline below rather than silently corrected.
+  version: '1.0'
+  contact:
+    name: PetExec
+    url: https://www.petexec.net/features/api-for-developers
+servers:
+- url: https://secure.petexec.net/api
+  description: PetExec production API (used by nearly all official PHP and most JavaScript examples)
+- url: https://beta.petexec.net/api
+  description: PetExec beta/staging API (referenced by some official JavaScript examples for the same paths; not separately documented)
+security:
+- bearerAuth: []
+tags:
+- name: Credit Cards
+  description: Owner stored payment cards.
+paths:
+  /user-card/owner/{owner_id}:
+    get:
+      operationId: getOwnerCreditCards
+      tags:
+      - Credit Cards
+      summary: Get all credit cards for an owner
+      description: Requires the usercard_read scope. PetExec's own examples are inconsistent between "user-card" (this GET) and "userCard" (used by the delete example below); both forms appear in the official API-Examples repository.
+      parameters:
+      - $ref: '#/components/parameters/OwnerId'
+      responses:
+        '200':
+          description: A list of the owner's stored credit cards.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CreditCard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /user-card/{card_id}/owner/{owner_id}:
+    get:
+      operationId: getOwnerCreditCard
+      tags:
+      - Credit Cards
+      summary: Get a single credit card for an owner
+      parameters:
+      - name: card_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/OwnerId'
+      responses:
+        '200':
+          description: The requested credit card.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreditCard'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /userCard/{card_id}:
+    delete:
+      operationId: deleteCreditCard
+      tags:
+      - Credit Cards
+      summary: Delete a credit card
+      parameters:
+      - name: card_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    DeleteResponse:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
+    CreditCard:
+      type: object
+      additionalProperties: true
+  parameters:
+    OwnerId:
+      name: owner_id
+      in: path
+      required: true
+      description: The PetExec owner (pet parent) ID.
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 password-grant access token obtained from POST /token. Passed as `Authorization: Bearer YOUR_ACCESS_TOKEN`.'

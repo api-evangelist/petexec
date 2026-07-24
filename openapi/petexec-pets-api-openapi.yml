@@ -1,0 +1,205 @@
+openapi: 3.0.3
+info:
+  title: PetExec Authentication Pets API
+  description: The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services). Every endpoint, path, and scope in this document is transcribed directly from PetExec's own public GitHub examples repository (https://github.com/PetExec/API-Examples), which is the only complete source of PetExec API technical detail publicly available - PetExec's interactive apidoc reference at https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered single-page app and does not expose a machine-readable spec. Access requires an active PetExec account. Client credentials (client_id / client_secret) are self-issued from Company Preferences > Misc. Settings > Maintain API Applications inside the PetExec console, then exchanged for a scoped Bearer token via an OAuth2 Resource Owner Password Credentials (password) grant against POST /token. PetExec was acquired by Togetherwork in November 2024 and is being migrated toward Gingr; PetExec is no longer accepting new customers, but this API surface is documented as live for existing accounts as of the review date. Some of PetExec's own published examples are internally inconsistent (mixed "user-card" / "userCard" casing, a menu example that appears to call the wrong path) - those inconsistencies are called out inline below rather than silently corrected.
+  version: '1.0'
+  contact:
+    name: PetExec
+    url: https://www.petexec.net/features/api-for-developers
+servers:
+- url: https://secure.petexec.net/api
+  description: PetExec production API (used by nearly all official PHP and most JavaScript examples)
+- url: https://beta.petexec.net/api
+  description: PetExec beta/staging API (referenced by some official JavaScript examples for the same paths; not separately documented)
+security:
+- bearerAuth: []
+tags:
+- name: Pets
+  description: Pet profiles, pet types, breeds, and vets.
+paths:
+  /pet/{pet_id}:
+    parameters:
+    - $ref: '#/components/parameters/PetId'
+    get:
+      operationId: getPet
+      tags:
+      - Pets
+      summary: Get pet information
+      description: Retrieves a single pet profile.
+      responses:
+        '200':
+          description: The requested pet.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deletePet
+      tags:
+      - Pets
+      summary: Delete a pet
+      description: Deletes a pet profile.
+      responses:
+        '200':
+          description: Deletion confirmation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /pet-type/:
+    get:
+      operationId: listPetTypes
+      tags:
+      - Pets
+      summary: List pet types
+      description: Lists the pet types configured for the company (e.g. Dog, Cat).
+      responses:
+        '200':
+          description: A list of pet types.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PetType'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /breed/pet-type/{pet_type_id}:
+    get:
+      operationId: listBreedsForPetType
+      tags:
+      - Pets
+      summary: List breeds for a pet type
+      description: 'Lists breeds available for a given pet type. Note: the official example (JavaScript/pet_breed/get_pet_breed.js) names its path variable "petid" but uses it as a pet-type identifier; documented here as pet_type_id for clarity.'
+      parameters:
+      - name: pet_type_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of breeds.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Breed'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /search/pets/{search_criteria}/page/{page_number}/data/{data_per_page}:
+    get:
+      operationId: searchPets
+      tags:
+      - Pets
+      summary: Search pets
+      description: Keyword search across pets, paginated.
+      parameters:
+      - name: search_criteria
+        in: path
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PageNumber'
+      - $ref: '#/components/parameters/DataPerPage'
+      responses:
+        '200':
+          description: A page of matching pets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /vet/:
+    get:
+      operationId: listVets
+      tags:
+      - Pets
+      summary: List vets
+      description: Lists the veterinarians recorded for the company's pets.
+      responses:
+        '200':
+          description: A list of vets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Vet'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  parameters:
+    PetId:
+      name: pet_id
+      in: path
+      required: true
+      description: The PetExec pet ID.
+      schema:
+        type: string
+    PageNumber:
+      name: page_number
+      in: path
+      required: true
+      description: Page number of search results.
+      schema:
+        type: integer
+    DataPerPage:
+      name: data_per_page
+      in: path
+      required: true
+      description: Number of entries per page.
+      schema:
+        type: integer
+  schemas:
+    Pet:
+      type: object
+      properties:
+        petid:
+          type: string
+      additionalProperties: true
+    Vet:
+      type: object
+      additionalProperties: true
+    DeleteResponse:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
+    PetType:
+      type: object
+      additionalProperties: true
+    Breed:
+      type: object
+      additionalProperties: true
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: 'OAuth2 password-grant access token obtained from POST /token. Passed as `Authorization: Bearer YOUR_ACCESS_TOKEN`.'
