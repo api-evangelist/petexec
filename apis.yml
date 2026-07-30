@@ -14,7 +14,20 @@ description: PetExec is cloud-based business management software for dog daycare
   / Revelation Pets pet-care product group; PetExec is no longer accepting new
   customers and is being migrated toward Gingr, but the documented API remains live
   for existing PetExec accounts as of this review.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/petexec.png
 tags:
 - Pet Care
 - Boarding
@@ -27,160 +40,202 @@ created: '2026-07-04'
 modified: '2026-07-04'
 specificationVersion: '0.19'
 apis:
-- aid: petexec:petexec-owners-api
-  name: PetExec Owners API
-  tags:
-  - Owners
-  - Customers
-  - CRM
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+- aid: petexec:petexec-authentication-api
+  name: PetExec Authentication API
+  description: OAuth2 password-grant token issuance.
   humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
   baseURL: https://secure.petexec.net/api
-  properties:
-  - url: https://www.petexec.net/features/api-for-developers
-    type: Documentation
-  - url: https://secure.petexec.net/api/apidoc/index.html
-    type: APIReference
-  - url: openapi/petexec-openapi.yml
-    type: OpenAPI
-  description: List and retrieve owner (pet parent) account records and run
-    paginated keyword search across the owner database. Requires the owner_read
-    OAuth2 scope.
-- aid: petexec:petexec-pets-api
-  name: PetExec Pets API
   tags:
-  - Pets
-  - Pet Profiles
-  - Breeds
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Pet
-  baseURL: https://secure.petexec.net/api
+  - Authentication
   properties:
-  - url: https://www.petexec.net/features/api-for-developers
-    type: Documentation
-  - url: https://secure.petexec.net/api/apidoc/index.html
-    type: APIReference
-  - url: openapi/petexec-openapi.yml
-    type: OpenAPI
-  description: Retrieve or delete an individual pet profile, list configured
-    pet types and the breeds available for a type, search pets by keyword, and
-    look up the facility's vet directory attached to pet records.
-- aid: petexec:petexec-reservations-api
-  name: PetExec Reservations API
+  - type: OpenAPI
+    url: openapi/petexec-authentication-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-boarding-api
+  name: PetExec Boarding API
+  description: Boarding reservations, packages, and services.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
   tags:
   - Boarding
-  - Daycare
-  - Grooming
-  - Reservations
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Boarding
-  baseURL: https://secure.petexec.net/api
   properties:
-  - url: https://www.petexec.net/features/api-for-developers
-    type: Documentation
-  - url: https://secure.petexec.net/api/apidoc/index.html
-    type: APIReference
-  - url: openapi/petexec-openapi.yml
-    type: OpenAPI
-  description: Retrieve or cancel a specific future boarding, daycare, grooming,
-    or scheduled-service reservation, and look up an owner's active boarding
-    packages.
+  - type: OpenAPI
+    url: openapi/petexec-boarding-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
 - aid: petexec:petexec-calendar-api
   name: PetExec Calendar API
+  description: Company-wide and per-owner reservation calendars by date range.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
   tags:
   - Calendar
-  - Scheduling
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Calender
-  baseURL: https://secure.petexec.net/api
   properties:
-  - url: https://www.petexec.net/features/api-for-developers
-    type: Documentation
-  - url: https://secure.petexec.net/api/apidoc/index.html
-    type: APIReference
-  - url: openapi/petexec-openapi.yml
-    type: OpenAPI
-  description: Pull company-wide or single-owner boarding, daycare, grooming,
-    and scheduled-service reservations for a given date range, for external
-    calendar and scheduling integrations.
-- aid: petexec:petexec-services-api
-  name: PetExec Services API
-  tags:
-  - Services
-  - Catalog
-  - Pricing
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Scheduled%20Services
+  - type: OpenAPI
+    url: openapi/petexec-calendar-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-company-api
+  name: PetExec Company API
+  description: Company locations, employees, lead sources, and preferences.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
   baseURL: https://secure.petexec.net/api
-  properties:
-  - url: https://www.petexec.net/features/api-for-developers
-    type: Documentation
-  - url: https://secure.petexec.net/api/apidoc/index.html
-    type: APIReference
-  - url: openapi/petexec-openapi.yml
-    type: OpenAPI
-  description: List the boarding, daycare, and grooming service catalog, the
-    roster of company groomers, and scheduled-service types plus the individual
-    services within each type.
-- aid: petexec:petexec-vaccinations-api
-  name: PetExec Vaccinations API
-  tags:
-  - Vaccinations
-  - Shot Records
-  - Compliance
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Vaccinations
-  baseURL: https://secure.petexec.net/api
-  properties:
-  - url: https://www.petexec.net/features/api-for-developers
-    type: Documentation
-  - url: https://secure.petexec.net/api/apidoc/index.html
-    type: APIReference
-  - url: openapi/petexec-openapi.yml
-    type: OpenAPI
-  description: Retrieve or delete an individual vaccination (shot) record and
-    list the shots configured for a given pet type, supporting vaccine-compliance
-    integrations.
-- aid: petexec:petexec-billing-reports-api
-  name: PetExec Billing & Reports API
-  tags:
-  - Invoices
-  - Billing
-  - Payments
-  - Reports
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Reports
-  baseURL: https://secure.petexec.net/api
-  properties:
-  - url: https://www.petexec.net/features/api-for-developers
-    type: Documentation
-  - url: https://secure.petexec.net/api/apidoc/index.html
-    type: APIReference
-  - url: openapi/petexec-openapi.yml
-    type: OpenAPI
-  description: Pull an owner's purchase history and stored credit cards, and
-    generate billing and statistics reports for a date range, optionally
-    broken down by payment type or service.
-- aid: petexec:petexec-company-account-api
-  name: PetExec Company & Account API
   tags:
   - Company
-  - Preferences
-  - Employees
-  - Profile
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Company
-  baseURL: https://secure.petexec.net/api
   properties:
-  - url: https://www.petexec.net/features/api-for-developers
-    type: Documentation
-  - url: https://secure.petexec.net/api/apidoc/index.html
-    type: APIReference
-  - url: openapi/petexec-openapi.yml
-    type: OpenAPI
-  description: Read company-level configuration - locations, employees, lead
-    sources ("how found"), and named preference values - plus the authenticated
-    user's own profile and owner-portal menu.
+  - type: OpenAPI
+    url: openapi/petexec-company-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-credit-cards-api
+  name: PetExec Credit Cards API
+  description: Owner stored payment cards.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Credit Cards
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-credit-cards-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-daycare-api
+  name: PetExec Daycare API
+  description: Daycare reservations and services.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Daycare
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-daycare-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-grooming-api
+  name: PetExec Grooming API
+  description: Grooming reservations, groomers, and services.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Grooming
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-grooming-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-owners-api
+  name: PetExec Owners API
+  description: Owner (pet parent) account records and search.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Owners
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-owners-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-pets-api
+  name: PetExec Pets API
+  description: Pet profiles, pet types, breeds, and vets.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Pets
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-pets-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-profile-api
+  name: PetExec Profile API
+  description: The authenticated user's own profile and portal menu.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Profile
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-profile-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-purchase-history-api
+  name: PetExec Purchase History API
+  description: Owner purchase/transaction history.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Purchase History
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-purchase-history-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-reports-api
+  name: PetExec Reports API
+  description: Billing and statistics reports.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Reports
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-reports-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-scheduled-services-api
+  name: PetExec Scheduled Services API
+  description: Scheduled-service reservations, types, and services.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Scheduled Services
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-scheduled-services-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
+- aid: petexec:petexec-vaccinations-api
+  name: PetExec Vaccinations API
+  description: Pet vaccination (shot) records.
+  humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
+  baseURL: https://secure.petexec.net/api
+  tags:
+  - Vaccinations
+  properties:
+  - type: OpenAPI
+    url: openapi/petexec-vaccinations-api-openapi.yml
+  - type: Documentation
+    url: https://www.petexec.net/features/api-for-developers
+  - type: APIReference
+    url: https://secure.petexec.net/api/apidoc/index.html
 common:
 - type: AgenticAccess
   url: agentic-access/petexec-agentic-access.yml
