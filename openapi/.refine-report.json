@@ -1,0 +1,40 @@
+{
+  "provider": "petexec",
+  "sources": [
+    "petexec-authentication-api-openapi.yml",
+    "petexec-boarding-api-openapi.yml",
+    "petexec-calendar-api-openapi.yml",
+    "petexec-company-api-openapi.yml",
+    "petexec-credit-cards-api-openapi.yml",
+    "petexec-daycare-api-openapi.yml",
+    "petexec-grooming-api-openapi.yml",
+    "petexec-owners-api-openapi.yml",
+    "petexec-pets-api-openapi.yml",
+    "petexec-profile-api-openapi.yml",
+    "petexec-purchase-history-api-openapi.yml",
+    "petexec-reports-api-openapi.yml",
+    "petexec-scheduled-services-api-openapi.yml",
+    "petexec-vaccinations-api-openapi.yml"
+  ],
+  "outputs": [
+    "petexec-authentication-api-openapi.yml",
+    "petexec-boarding-api-openapi.yml",
+    "petexec-calendar-api-openapi.yml",
+    "petexec-company-api-openapi.yml",
+    "petexec-credit-cards-api-openapi.yml",
+    "petexec-daycare-api-openapi.yml",
+    "petexec-grooming-api-openapi.yml",
+    "petexec-owners-api-openapi.yml",
+    "petexec-pets-api-openapi.yml",
+    "petexec-profile-api-openapi.yml",
+    "petexec-purchase-history-api-openapi.yml",
+    "petexec-reports-api-openapi.yml",
+    "petexec-scheduled-services-api-openapi.yml",
+    "petexec-vaccinations-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
