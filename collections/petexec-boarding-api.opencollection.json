@@ -1,0 +1,90 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Boarding API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Boarding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a boarding reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/boarding/:boarding_id",
+            "params": [
+              {
+                "name": "boarding_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a boarding reservation"
+        },
+        {
+          "info": {
+            "name": "Delete a future boarding reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/boarding/:boarding_id",
+            "params": [
+              {
+                "name": "boarding_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a future boarding reservation"
+        },
+        {
+          "info": {
+            "name": "Get an owner's boarding packages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/boarding/packages/owner/:owner_id",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec owner (pet parent) ID."
+              }
+            ]
+          },
+          "docs": "Get an owner's boarding packages"
+        },
+        {
+          "info": {
+            "name": "List boarding services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/boarding/services"
+          },
+          "docs": "List boarding services"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

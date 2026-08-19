@@ -1,0 +1,189 @@
+{
+  "item": [
+    {
+      "id": "5a62953e-e89b-4a73-a1ed-4418aab524a0",
+      "name": "Purchase History",
+      "description": {
+        "content": "Owner purchase/transaction history.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7540f1a7-8dbd-4e8e-b0d8-4befdda0f845",
+          "name": "Get an owner's purchase history",
+          "request": {
+            "name": "Get an owner's purchase history",
+            "description": {},
+            "url": {
+              "path": [
+                "purchase-history",
+                "owner",
+                ":owner_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_id",
+                  "description": "(Required) The PetExec owner (pet parent) ID."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ade73a9-6ac9-488c-b018-aa8d64cedc31",
+              "name": "The owner's purchase history.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "purchase-history",
+                    "owner",
+                    ":owner_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": \"string\",\n    \"key_1\": false,\n    \"key_2\": 6098.006462650296\n  },\n  {\n    \"key_0\": 2291.029603399969,\n    \"key_1\": true,\n    \"key_2\": 5301\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cad202c6-ed1c-4ad7-95f7-4838d8636cee",
+              "name": "Missing, invalid, or expired Bearer token, or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "purchase-history",
+                    "owner",
+                    ":owner_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 2736,\n  \"key_1\": \"string\",\n  \"key_2\": true\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://secure.petexec.net/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c526c65e-2daf-4472-9a7a-3dce0587a87c",
+    "name": "PetExec Authentication Purchase History API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services). Every endpoint, path, and scope in this document is transcribed directly from PetExec's own public GitHub examples repository (https://github.com/PetExec/API-Examples), which is the only complete source of PetExec API technical detail publicly available - PetExec's interactive apidoc reference at https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered single-page app and does not expose a machine-readable spec. Access requires an active PetExec account. Client credentials (client_id / client_secret) are self-issued from Company Preferences > Misc. Settings > Maintain API Applications inside the PetExec console, then exchanged for a scoped Bearer token via an OAuth2 Resource Owner Password Credentials (password) grant against POST /token. PetExec was acquired by Togetherwork in November 2024 and is being migrated toward Gingr; PetExec is no longer accepting new customers, but this API surface is documented as live for existing accounts as of the review date. Some of PetExec's own published examples are internally inconsistent (mixed \"user-card\" / \"userCard\" casing, a menu example that appears to call the wrong path) - those inconsistencies are called out inline below rather than silently corrected.\n\nContact Support:\n Name: PetExec",
+      "type": "text/plain"
+    }
+  }
+}

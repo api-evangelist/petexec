@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Purchase History API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Purchase History",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get an owner's purchase history",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/purchase-history/owner/:owner_id",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec owner (pet parent) ID."
+              }
+            ]
+          },
+          "docs": "Get an owner's purchase history"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

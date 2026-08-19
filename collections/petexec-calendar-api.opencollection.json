@@ -1,0 +1,248 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Calendar API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Calendar",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get company boardings scheduled in a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/boarding/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              }
+            ]
+          },
+          "docs": "Get company boardings scheduled in a date range"
+        },
+        {
+          "info": {
+            "name": "Get company daycares scheduled in a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/daycare/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              }
+            ]
+          },
+          "docs": "Get company daycares scheduled in a date range"
+        },
+        {
+          "info": {
+            "name": "Get company groomings scheduled in a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/grooming/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              }
+            ]
+          },
+          "docs": "Get company groomings scheduled in a date range"
+        },
+        {
+          "info": {
+            "name": "Get company scheduled services scheduled in a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/scheduled-service/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              }
+            ]
+          },
+          "docs": "Get company scheduled services scheduled in a date range"
+        },
+        {
+          "info": {
+            "name": "Get an owner's boardings scheduled in a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/owner/:owner_id/boarding/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec owner (pet parent) ID."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              }
+            ]
+          },
+          "docs": "Get an owner's boardings scheduled in a date range"
+        },
+        {
+          "info": {
+            "name": "Get an owner's daycares scheduled in a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/owner/:owner_id/daycare/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec owner (pet parent) ID."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              }
+            ]
+          },
+          "docs": "Get an owner's daycares scheduled in a date range"
+        },
+        {
+          "info": {
+            "name": "Get an owner's groomings scheduled in a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/owner/:owner_id/grooming/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec owner (pet parent) ID."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              }
+            ]
+          },
+          "docs": "Get an owner's groomings scheduled in a date range"
+        },
+        {
+          "info": {
+            "name": "Get an owner's scheduled services scheduled in a date range",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/calendar/owner/:owner_id/scheduled-service/start/:start_date/end/:end_date",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec owner (pet parent) ID."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              }
+            ]
+          },
+          "docs": "Get an owner's scheduled services scheduled in a date range"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

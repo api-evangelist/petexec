@@ -1,0 +1,153 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Reports API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a billing report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/report/billing-report/:start_date/:end_date/:pay_type/:owner_portal",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "pay_type",
+                "value": "",
+                "type": "path",
+                "description": "All Types, Cash, Check, Credit, Clover Mini, Gift Certificate, No Payment, Paw Point Redemption, Refund, Tradeout, or Unprocessed."
+              },
+              {
+                "name": "owner_portal",
+                "value": "",
+                "type": "path",
+                "description": "yes or no"
+              }
+            ]
+          },
+          "docs": "Requires the report_read scope."
+        },
+        {
+          "info": {
+            "name": "Get a statistics report",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/report/statistics-report/:start_date/:end_date/:taxable_only",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "taxable_only",
+                "value": "",
+                "type": "path",
+                "description": "yes or no"
+              }
+            ]
+          },
+          "docs": "Get a statistics report"
+        },
+        {
+          "info": {
+            "name": "Get a statistics report broken down by payment type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/report/statistics-report/:start_date/:end_date/breakdown/:pay_type",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "pay_type",
+                "value": "",
+                "type": "path",
+                "description": "Cash, Check, Credit, Clover Mini, Tradeout, Refund, No Payment, Gift Certificate, Paw Point Redemption, Not Processed, Discount, Tax, or Tip / Gratuity."
+              }
+            ]
+          },
+          "docs": "Get a statistics report broken down by payment type"
+        },
+        {
+          "info": {
+            "name": "Get a statistics report broken down by service",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/report/statistics-report/:start_date/:end_date/breakdown/service/:service_id",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "path",
+                "description": "yyyy-mm-dd"
+              },
+              {
+                "name": "service_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a statistics report broken down by service"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

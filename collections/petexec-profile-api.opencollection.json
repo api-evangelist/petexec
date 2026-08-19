@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Profile API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the authenticated user's profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/profile/"
+          },
+          "docs": "Get the authenticated user's profile"
+        },
+        {
+          "info": {
+            "name": "Get the owner-portal menu for the authenticated user",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/menu"
+          },
+          "docs": "Requires the menu_read scope. Confirmed via the official PHP-Guzzle/Menu/get_menu.php example; the parallel JavaScript example (JavaScript/Menu/get_menu_for_authenticated_user.js) appears to be a copy/paste error in PetExec's own repo - it calls GET /owner/{ownerid} instead."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

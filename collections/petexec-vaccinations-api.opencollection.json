@@ -1,0 +1,79 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Vaccinations API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vaccinations",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a vaccination (shot) record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/shot/:shot_id",
+            "params": [
+              {
+                "name": "shot_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a vaccination (shot) record"
+        },
+        {
+          "info": {
+            "name": "Delete a vaccination (shot) record",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/shot/:shot_id",
+            "params": [
+              {
+                "name": "shot_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a vaccination (shot) record"
+        },
+        {
+          "info": {
+            "name": "Get all shots for a selected pet type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/shot/pet-type/:pet_id",
+            "params": [
+              {
+                "name": "pet_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec pet ID."
+              }
+            ]
+          },
+          "docs": "Get all shots for a selected pet type"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

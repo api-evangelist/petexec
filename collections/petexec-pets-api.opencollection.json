@@ -1,0 +1,132 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Pets API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Pets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get pet information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/pet/:pet_id",
+            "params": [
+              {
+                "name": "pet_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec pet ID."
+              }
+            ]
+          },
+          "docs": "Retrieves a single pet profile."
+        },
+        {
+          "info": {
+            "name": "Delete a pet",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/pet/:pet_id",
+            "params": [
+              {
+                "name": "pet_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec pet ID."
+              }
+            ]
+          },
+          "docs": "Deletes a pet profile."
+        },
+        {
+          "info": {
+            "name": "List pet types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/pet-type/"
+          },
+          "docs": "Lists the pet types configured for the company (e.g. Dog, Cat)."
+        },
+        {
+          "info": {
+            "name": "List breeds for a pet type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/breed/pet-type/:pet_type_id",
+            "params": [
+              {
+                "name": "pet_type_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Lists breeds available for a given pet type. Note: the official example (JavaScript/pet_breed/get_pet_breed.js) names its path variable \"petid\" but uses it as a pet-type identifier; documented here as pet_type_id for clarity."
+        },
+        {
+          "info": {
+            "name": "Search pets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/search/pets/:search_criteria/page/:page_number/data/:data_per_page",
+            "params": [
+              {
+                "name": "search_criteria",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "path",
+                "description": "Page number of search results."
+              },
+              {
+                "name": "data_per_page",
+                "value": "",
+                "type": "path",
+                "description": "Number of entries per page."
+              }
+            ]
+          },
+          "docs": "Keyword search across pets, paginated."
+        },
+        {
+          "info": {
+            "name": "List vets",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/vet/"
+          },
+          "docs": "Lists the veterinarians recorded for the company's pets."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

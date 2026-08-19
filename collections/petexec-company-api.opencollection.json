@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Company API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get company locations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/company/locations"
+          },
+          "docs": "Get company locations"
+        },
+        {
+          "info": {
+            "name": "Get company employees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/company/employees/"
+          },
+          "docs": "Get company employees"
+        },
+        {
+          "info": {
+            "name": "Get all \"how found\" lead sources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/company/how-found/"
+          },
+          "docs": "Get all \"how found\" lead sources"
+        },
+        {
+          "info": {
+            "name": "Get all company preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/preference"
+          },
+          "docs": "Get all company preferences"
+        },
+        {
+          "info": {
+            "name": "Get a single company preference value",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/preference/:preference_name",
+            "params": [
+              {
+                "name": "preference_name",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "The preference name is URI-encoded (e.g. \"Order%20Dashboard%20Notes\")."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

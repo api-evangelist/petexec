@@ -1,0 +1,71 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Daycare API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Daycare",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a daycare reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/daycare/:daycare_id",
+            "params": [
+              {
+                "name": "daycare_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a daycare reservation"
+        },
+        {
+          "info": {
+            "name": "Delete a future daycare reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/daycare/:daycare_id",
+            "params": [
+              {
+                "name": "daycare_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a future daycare reservation"
+        },
+        {
+          "info": {
+            "name": "List daycare and lunch services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/daycare/services/"
+          },
+          "docs": "List daycare and lunch services"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

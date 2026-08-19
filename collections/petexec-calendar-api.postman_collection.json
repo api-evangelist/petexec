@@ -1,0 +1,1573 @@
+{
+  "item": [
+    {
+      "id": "a149bdf9-cfe2-44da-8352-599f28e5a284",
+      "name": "Calendar",
+      "description": {
+        "content": "Company-wide and per-owner reservation calendars by date range.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e8530447-1382-4cb0-b643-9dfc28180db7",
+          "name": "Get company boardings scheduled in a date range",
+          "request": {
+            "name": "Get company boardings scheduled in a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "calendar",
+                "boarding",
+                "start",
+                ":start_date",
+                "end",
+                ":end_date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "start_date",
+                  "description": "(Required) yyyy-mm-dd"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "end_date",
+                  "description": "(Required) yyyy-mm-dd"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "545da843-34b6-46bc-8271-37229ba80366",
+              "name": "Scheduled boardings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "boarding",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 8945.719908132212,\n    \"key_1\": 5707.618281945802\n  },\n  {\n    \"key_0\": false,\n    \"key_1\": 6727\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "68733b5f-69ca-496f-bf9d-c77e96281345",
+              "name": "Missing, invalid, or expired Bearer token, or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "boarding",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 3778,\n  \"key_1\": 1635.2720028992328,\n  \"key_2\": 3488.7479455566418\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eaaf695a-8b20-4134-9884-7d955f916a77",
+          "name": "Get company daycares scheduled in a date range",
+          "request": {
+            "name": "Get company daycares scheduled in a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "calendar",
+                "daycare",
+                "start",
+                ":start_date",
+                "end",
+                ":end_date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "start_date",
+                  "description": "(Required) yyyy-mm-dd"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "end_date",
+                  "description": "(Required) yyyy-mm-dd"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1fd1cb2c-5905-47c2-994e-1249f59baf16",
+              "name": "Scheduled daycares.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "daycare",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 8945.719908132212,\n    \"key_1\": 5707.618281945802\n  },\n  {\n    \"key_0\": false,\n    \"key_1\": 6727\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d6dae00-79bc-4805-b18c-14a5d0c76b74",
+              "name": "Missing, invalid, or expired Bearer token, or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "daycare",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 3778,\n  \"key_1\": 1635.2720028992328,\n  \"key_2\": 3488.7479455566418\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f35badc7-99ff-47e2-ba58-9f50c27b0713",
+          "name": "Get company groomings scheduled in a date range",
+          "request": {
+            "name": "Get company groomings scheduled in a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "calendar",
+                "grooming",
+                "start",
+                ":start_date",
+                "end",
+                ":end_date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "start_date",
+                  "description": "(Required) yyyy-mm-dd"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "end_date",
+                  "description": "(Required) yyyy-mm-dd"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1ca1de9c-2fae-470d-9843-83fcecbaa2ed",
+              "name": "Scheduled groomings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "grooming",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 8945.719908132212,\n    \"key_1\": 5707.618281945802\n  },\n  {\n    \"key_0\": false,\n    \"key_1\": 6727\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "22f86f14-4a0c-4d10-ac9e-992c57b817cc",
+              "name": "Missing, invalid, or expired Bearer token, or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "grooming",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 3778,\n  \"key_1\": 1635.2720028992328,\n  \"key_2\": 3488.7479455566418\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dd97050d-8b1e-4c92-bebf-cbdb761f3421",
+          "name": "Get company scheduled services scheduled in a date range",
+          "request": {
+            "name": "Get company scheduled services scheduled in a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "calendar",
+                "scheduled-service",
+                "start",
+                ":start_date",
+                "end",
+                ":end_date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "start_date",
+                  "description": "(Required) yyyy-mm-dd"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "end_date",
+                  "description": "(Required) yyyy-mm-dd"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a92f8834-5716-4b8b-9adc-c813738f9bc1",
+              "name": "Scheduled services.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "scheduled-service",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 8945.719908132212,\n    \"key_1\": 5707.618281945802\n  },\n  {\n    \"key_0\": false,\n    \"key_1\": 6727\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a4dc3d0c-9307-4ef2-b2a1-e35a92d12b3b",
+              "name": "Missing, invalid, or expired Bearer token, or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "scheduled-service",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 3778,\n  \"key_1\": 1635.2720028992328,\n  \"key_2\": 3488.7479455566418\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c27a9496-72c6-483e-8954-ca3591c7147e",
+          "name": "Get an owner's boardings scheduled in a date range",
+          "request": {
+            "name": "Get an owner's boardings scheduled in a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "calendar",
+                "owner",
+                ":owner_id",
+                "boarding",
+                "start",
+                ":start_date",
+                "end",
+                ":end_date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_id",
+                  "description": "(Required) The PetExec owner (pet parent) ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "start_date",
+                  "description": "(Required) yyyy-mm-dd"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "end_date",
+                  "description": "(Required) yyyy-mm-dd"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "402ffe39-b494-4a15-a081-53af7da41425",
+              "name": "The owner's scheduled boardings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "owner",
+                    ":owner_id",
+                    "boarding",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 8945.719908132212,\n    \"key_1\": 5707.618281945802\n  },\n  {\n    \"key_0\": false,\n    \"key_1\": 6727\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "727d1bab-147f-4239-98f5-99a0605cde0d",
+              "name": "Missing, invalid, or expired Bearer token, or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "owner",
+                    ":owner_id",
+                    "boarding",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 3778,\n  \"key_1\": 1635.2720028992328,\n  \"key_2\": 3488.7479455566418\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "002ead2f-b702-413c-b5b0-b748d09ec3f1",
+          "name": "Get an owner's daycares scheduled in a date range",
+          "request": {
+            "name": "Get an owner's daycares scheduled in a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "calendar",
+                "owner",
+                ":owner_id",
+                "daycare",
+                "start",
+                ":start_date",
+                "end",
+                ":end_date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_id",
+                  "description": "(Required) The PetExec owner (pet parent) ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "start_date",
+                  "description": "(Required) yyyy-mm-dd"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "end_date",
+                  "description": "(Required) yyyy-mm-dd"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7c85b6c-a94e-43ea-8cbc-41d01a47aaa5",
+              "name": "The owner's scheduled daycares.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "owner",
+                    ":owner_id",
+                    "daycare",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 8945.719908132212,\n    \"key_1\": 5707.618281945802\n  },\n  {\n    \"key_0\": false,\n    \"key_1\": 6727\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a53ec3a2-5115-482a-959f-f9c8faaf392b",
+              "name": "Missing, invalid, or expired Bearer token, or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "owner",
+                    ":owner_id",
+                    "daycare",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 3778,\n  \"key_1\": 1635.2720028992328,\n  \"key_2\": 3488.7479455566418\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6f6dd94-dfd3-4567-98d5-2166a211e05e",
+          "name": "Get an owner's groomings scheduled in a date range",
+          "request": {
+            "name": "Get an owner's groomings scheduled in a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "calendar",
+                "owner",
+                ":owner_id",
+                "grooming",
+                "start",
+                ":start_date",
+                "end",
+                ":end_date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_id",
+                  "description": "(Required) The PetExec owner (pet parent) ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "start_date",
+                  "description": "(Required) yyyy-mm-dd"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "end_date",
+                  "description": "(Required) yyyy-mm-dd"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d676848-25b6-4d69-8bd2-259a6532142c",
+              "name": "The owner's scheduled groomings.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "owner",
+                    ":owner_id",
+                    "grooming",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 8945.719908132212,\n    \"key_1\": 5707.618281945802\n  },\n  {\n    \"key_0\": false,\n    \"key_1\": 6727\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8793f8dc-48af-4a8c-b9aa-7761eae029c3",
+              "name": "Missing, invalid, or expired Bearer token, or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "owner",
+                    ":owner_id",
+                    "grooming",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 3778,\n  \"key_1\": 1635.2720028992328,\n  \"key_2\": 3488.7479455566418\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a6584620-b46f-47da-bff1-bfaa57ece35c",
+          "name": "Get an owner's scheduled services scheduled in a date range",
+          "request": {
+            "name": "Get an owner's scheduled services scheduled in a date range",
+            "description": {},
+            "url": {
+              "path": [
+                "calendar",
+                "owner",
+                ":owner_id",
+                "scheduled-service",
+                "start",
+                ":start_date",
+                "end",
+                ":end_date"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "owner_id",
+                  "description": "(Required) The PetExec owner (pet parent) ID."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "start_date",
+                  "description": "(Required) yyyy-mm-dd"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<date>",
+                  "key": "end_date",
+                  "description": "(Required) yyyy-mm-dd"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "24e548b0-9e63-4f95-af86-86375844d025",
+              "name": "The owner's scheduled services.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "owner",
+                    ":owner_id",
+                    "scheduled-service",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"key_0\": 8945.719908132212,\n    \"key_1\": 5707.618281945802\n  },\n  {\n    \"key_0\": false,\n    \"key_1\": 6727\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2092f74e-acad-4a9c-842d-d8cf4139e6df",
+              "name": "Missing, invalid, or expired Bearer token, or insufficient scope.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "calendar",
+                    "owner",
+                    ":owner_id",
+                    "scheduled-service",
+                    "start",
+                    ":start_date",
+                    "end",
+                    ":end_date"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "owner_id",
+                      "description": "(Required) The PetExec owner (pet parent) ID."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "start_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<date>",
+                      "key": "end_date",
+                      "description": "(Required) yyyy-mm-dd"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": 3778,\n  \"key_1\": 1635.2720028992328,\n  \"key_2\": 3488.7479455566418\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://secure.petexec.net/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "972adb61-dc87-4156-8599-1a7861ab3f2a",
+    "name": "PetExec Authentication Calendar API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services). Every endpoint, path, and scope in this document is transcribed directly from PetExec's own public GitHub examples repository (https://github.com/PetExec/API-Examples), which is the only complete source of PetExec API technical detail publicly available - PetExec's interactive apidoc reference at https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered single-page app and does not expose a machine-readable spec. Access requires an active PetExec account. Client credentials (client_id / client_secret) are self-issued from Company Preferences > Misc. Settings > Maintain API Applications inside the PetExec console, then exchanged for a scoped Bearer token via an OAuth2 Resource Owner Password Credentials (password) grant against POST /token. PetExec was acquired by Togetherwork in November 2024 and is being migrated toward Gingr; PetExec is no longer accepting new customers, but this API surface is documented as live for existing accounts as of the review date. Some of PetExec's own published examples are internally inconsistent (mixed \"user-card\" / \"userCard\" casing, a menu example that appears to call the wrong path) - those inconsistencies are called out inline below rather than silently corrected.\n\nContact Support:\n Name: PetExec",
+      "type": "text/plain"
+    }
+  }
+}

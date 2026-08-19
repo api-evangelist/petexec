@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Owners API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Owners",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List active owners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/owner"
+          },
+          "docs": "Returns all active owner (pet parent) accounts. Requires the owner_read scope."
+        },
+        {
+          "info": {
+            "name": "Get owner information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/owner/:owner_id",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec owner (pet parent) ID."
+              }
+            ]
+          },
+          "docs": "Retrieves a single owner's account information. Requires the owner_read scope."
+        },
+        {
+          "info": {
+            "name": "Search owners",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/search/owners/:search_criteria/page/:page_number/data/:data_per_page",
+            "params": [
+              {
+                "name": "search_criteria",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "page_number",
+                "value": "",
+                "type": "path",
+                "description": "Page number of search results."
+              },
+              {
+                "name": "data_per_page",
+                "value": "",
+                "type": "path",
+                "description": "Number of entries per page."
+              }
+            ]
+          },
+          "docs": "Keyword search across owners, paginated."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

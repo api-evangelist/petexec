@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Grooming API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Grooming",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get a grooming reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/grooming/:grooming_id",
+            "params": [
+              {
+                "name": "grooming_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a grooming reservation"
+        },
+        {
+          "info": {
+            "name": "Delete a future grooming reservation",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/grooming/:grooming_id",
+            "params": [
+              {
+                "name": "grooming_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a future grooming reservation"
+        },
+        {
+          "info": {
+            "name": "List company groomers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/grooming/groomers"
+          },
+          "docs": "List company groomers"
+        },
+        {
+          "info": {
+            "name": "List grooming services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/grooming/services/"
+          },
+          "docs": "List grooming services"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Scheduled Services API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scheduled Services",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delete a future scheduled service",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/scheduled-service/:scheduled_service_id",
+            "params": [
+              {
+                "name": "scheduled_service_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a future scheduled service"
+        },
+        {
+          "info": {
+            "name": "List scheduled-service types",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/scheduled-service/service-types/"
+          },
+          "docs": "List scheduled-service types"
+        },
+        {
+          "info": {
+            "name": "List scheduled-service types and services",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/scheduled-service/services/"
+          },
+          "docs": "List scheduled-service types and services"
+        },
+        {
+          "info": {
+            "name": "List services for a scheduled-service type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/scheduled-service/services/:service_type_id",
+            "params": [
+              {
+                "name": "service_type_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List services for a scheduled-service type"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

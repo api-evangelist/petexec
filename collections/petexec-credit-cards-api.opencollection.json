@@ -1,0 +1,85 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication Credit Cards API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Credit Cards",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all credit cards for an owner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/user-card/owner/:owner_id",
+            "params": [
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec owner (pet parent) ID."
+              }
+            ]
+          },
+          "docs": "Requires the usercard_read scope. PetExec's own examples are inconsistent between \"user-card\" (this GET) and \"userCard\" (used by the delete example below); both forms appear in the official API-Examples repository."
+        },
+        {
+          "info": {
+            "name": "Get a single credit card for an owner",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://secure.petexec.net/api/user-card/:card_id/owner/:owner_id",
+            "params": [
+              {
+                "name": "card_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "owner_id",
+                "value": "",
+                "type": "path",
+                "description": "The PetExec owner (pet parent) ID."
+              }
+            ]
+          },
+          "docs": "Get a single credit card for an owner"
+        },
+        {
+          "info": {
+            "name": "Delete a credit card",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://secure.petexec.net/api/userCard/:card_id",
+            "params": [
+              {
+                "name": "card_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a credit card"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

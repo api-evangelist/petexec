@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PetExec Authentication API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authentication",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Obtain an access token (password grant)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://secure.petexec.net/api/token",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "form-urlencoded",
+              "data": [
+                {
+                  "name": "grant_type",
+                  "value": ""
+                },
+                {
+                  "name": "username",
+                  "value": ""
+                },
+                {
+                  "name": "password",
+                  "value": ""
+                },
+                {
+                  "name": "scope",
+                  "value": ""
+                }
+              ]
+            }
+          },
+          "docs": "Exchanges a PetExec username/password plus a client_id/client_secret (sent as an HTTP Basic Authorization header) for a scoped Bearer access token. `scope` is a space-separated list, e.g. \"owner_read owner_update\". Public clients (e.g. browser JavaScript) should not expose client_secret."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
