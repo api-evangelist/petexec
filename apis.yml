@@ -14,6 +14,18 @@ description: PetExec is cloud-based business management software for dog daycare
   / Revelation Pets pet-care product group; PetExec is no longer accepting new
   customers and is being migrated toward Gingr, but the documented API remains live
   for existing PetExec accounts as of this review.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
