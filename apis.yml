@@ -249,6 +249,9 @@ apis:
   - type: APIReference
     url: https://secure.petexec.net/api/apidoc/index.html
 common:
+- type: CapabilityMap
+  url: capabilities/petexec-capability-edges.yml
+  name: PetExec Business Capability Map
 - type: AgenticAccess
   url: agentic-access/petexec-agentic-access.yml
 - type: DomainSecurity
