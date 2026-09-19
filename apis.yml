@@ -185,6 +185,8 @@ apis:
   humanURL: https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner
   baseURL: https://secure.petexec.net/api
   tags:
+  - Profiles
+  tags_raw:
   - Profile
   properties:
   - type: OpenAPI
