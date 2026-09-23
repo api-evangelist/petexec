@@ -1,20 +1,7 @@
 {
   "provider": "petexec",
   "sources": [
-    "petexec-authentication-api-openapi.yml",
-    "petexec-boarding-api-openapi.yml",
-    "petexec-calendar-api-openapi.yml",
-    "petexec-company-api-openapi.yml",
-    "petexec-credit-cards-api-openapi.yml",
-    "petexec-daycare-api-openapi.yml",
-    "petexec-grooming-api-openapi.yml",
-    "petexec-owners-api-openapi.yml",
-    "petexec-pets-api-openapi.yml",
-    "petexec-profile-api-openapi.yml",
-    "petexec-purchase-history-api-openapi.yml",
-    "petexec-reports-api-openapi.yml",
-    "petexec-scheduled-services-api-openapi.yml",
-    "petexec-vaccinations-api-openapi.yml"
+    "_original/petexec-openapi.yml"
   ],
   "outputs": [
     "petexec-authentication-api-openapi.yml",
@@ -35,6 +22,25 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "petexec-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "petexec-authentication-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-boarding-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-calendar-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-company-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-credit-cards-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-daycare-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-grooming-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-owners-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-pets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-profile-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-purchase-history-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-scheduled-services-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "petexec-vaccinations-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

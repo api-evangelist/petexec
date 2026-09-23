@@ -1,7 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: PetExec Authentication Calendar API
-  description: The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services). Every endpoint, path, and scope in this document is transcribed directly from PetExec's own public GitHub examples repository (https://github.com/PetExec/API-Examples), which is the only complete source of PetExec API technical detail publicly available - PetExec's interactive apidoc reference at https://secure.petexec.net/api/apidoc/index.html is a JavaScript-rendered single-page app and does not expose a machine-readable spec. Access requires an active PetExec account. Client credentials (client_id / client_secret) are self-issued from Company Preferences > Misc. Settings > Maintain API Applications inside the PetExec console, then exchanged for a scoped Bearer token via an OAuth2 Resource Owner Password Credentials (password) grant against POST /token. PetExec was acquired by Togetherwork in November 2024 and is being migrated toward Gingr; PetExec is no longer accepting new customers, but this API surface is documented as live for existing accounts as of the review date. Some of PetExec's own published examples are internally inconsistent (mixed "user-card" / "userCard" casing, a menu example that appears to call the wrong path) - those inconsistencies are called out inline below rather than silently corrected.
+  title: PetExec Calendar API
+  description: The PetExec API is a REST API for existing PetExec customers and their developers to extend the PetExec pet-care business management platform (daycare, boarding, grooming, training, and scheduled services).
   version: '1.0'
   contact:
     name: PetExec
@@ -182,13 +182,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Reservation:
-      type: object
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
   responses:
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
@@ -197,13 +190,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    OwnerId:
-      name: owner_id
-      in: path
-      required: true
-      description: The PetExec owner (pet parent) ID.
-      schema:
-        type: string
     EndDate:
       name: end_date
       in: path
@@ -220,6 +206,20 @@ components:
       schema:
         type: string
         format: date
+    OwnerId:
+      name: owner_id
+      in: path
+      required: true
+      description: The PetExec owner (pet parent) ID.
+      schema:
+        type: string
+  schemas:
+    Error:
+      type: object
+      additionalProperties: true
+    Reservation:
+      type: object
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http
