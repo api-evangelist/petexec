@@ -96,11 +96,11 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    PageNumber:
-      name: page_number
+    DataPerPage:
+      name: data_per_page
       in: path
       required: true
-      description: Page number of search results.
+      description: Number of entries per page.
       schema:
         type: integer
     OwnerId:
@@ -110,23 +110,23 @@ components:
       description: The PetExec owner (pet parent) ID.
       schema:
         type: string
-    DataPerPage:
-      name: data_per_page
+    PageNumber:
+      name: page_number
       in: path
       required: true
-      description: Number of entries per page.
+      description: Page number of search results.
       schema:
         type: integer
   schemas:
+    Error:
+      type: object
+      additionalProperties: true
     Owner:
       type: object
       description: Field-level schema is not published by PetExec; shape inferred only from the fact that examples key on an owner ID and are requested under the owner_read/owner_update scopes.
       properties:
         ownerid:
           type: string
-      additionalProperties: true
-    Error:
-      type: object
       additionalProperties: true
   securitySchemes:
     bearerAuth:

@@ -141,50 +141,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Breed:
-      type: object
-      additionalProperties: true
-    Vet:
-      type: object
-      additionalProperties: true
-    Pet:
-      type: object
-      properties:
-        petid:
-          type: string
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
-    PetType:
-      type: object
-      additionalProperties: true
-    DeleteResponse:
-      type: object
-      additionalProperties: true
-  parameters:
-    PetId:
-      name: pet_id
-      in: path
-      required: true
-      description: The PetExec pet ID.
-      schema:
-        type: string
-    PageNumber:
-      name: page_number
-      in: path
-      required: true
-      description: Page number of search results.
-      schema:
-        type: integer
-    DataPerPage:
-      name: data_per_page
-      in: path
-      required: true
-      description: Number of entries per page.
-      schema:
-        type: integer
   responses:
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
@@ -198,6 +154,50 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    Breed:
+      type: object
+      additionalProperties: true
+    DeleteResponse:
+      type: object
+      additionalProperties: true
+    PetType:
+      type: object
+      additionalProperties: true
+    Pet:
+      type: object
+      properties:
+        petid:
+          type: string
+      additionalProperties: true
+    Vet:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
+  parameters:
+    PetId:
+      name: pet_id
+      in: path
+      required: true
+      description: The PetExec pet ID.
+      schema:
+        type: string
+    DataPerPage:
+      name: data_per_page
+      in: path
+      required: true
+      description: Number of entries per page.
+      schema:
+        type: integer
+    PageNumber:
+      name: page_number
+      in: path
+      required: true
+      description: Page number of search results.
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http

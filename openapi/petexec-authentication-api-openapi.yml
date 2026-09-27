@@ -72,9 +72,6 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      additionalProperties: true
     TokenResponse:
       type: object
       properties:
@@ -86,6 +83,9 @@ components:
           type: integer
         scope:
           type: string
+    Error:
+      type: object
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

@@ -51,10 +51,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Error:
-      type: object
-      additionalProperties: true
   responses:
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
@@ -62,6 +58,10 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

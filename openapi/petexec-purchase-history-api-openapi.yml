@@ -37,13 +37,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Error:
-      type: object
-      additionalProperties: true
-    PurchaseHistoryEntry:
-      type: object
-      additionalProperties: true
   responses:
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
@@ -59,6 +52,13 @@ components:
       description: The PetExec owner (pet parent) ID.
       schema:
         type: string
+  schemas:
+    PurchaseHistoryEntry:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

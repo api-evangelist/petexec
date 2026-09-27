@@ -111,16 +111,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  schemas:
-    Location:
-      type: object
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
-    Employee:
-      type: object
-      additionalProperties: true
   responses:
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
@@ -134,6 +124,16 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      additionalProperties: true
+    Location:
+      type: object
+      additionalProperties: true
+    Employee:
+      type: object
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

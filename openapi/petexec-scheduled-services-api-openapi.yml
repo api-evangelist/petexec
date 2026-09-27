@@ -98,19 +98,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Service:
-      type: object
-      additionalProperties: true
-    ServiceType:
-      type: object
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
-    DeleteResponse:
-      type: object
-      additionalProperties: true
   responses:
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
@@ -124,6 +111,19 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    DeleteResponse:
+      type: object
+      additionalProperties: true
+    Service:
+      type: object
+      additionalProperties: true
+    ServiceType:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

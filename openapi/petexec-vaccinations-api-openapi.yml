@@ -76,14 +76,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    PetId:
-      name: pet_id
-      in: path
-      required: true
-      description: The PetExec pet ID.
-      schema:
-        type: string
   responses:
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
@@ -97,14 +89,22 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    PetId:
+      name: pet_id
+      in: path
+      required: true
+      description: The PetExec pet ID.
+      schema:
+        type: string
   schemas:
+    DeleteResponse:
+      type: object
+      additionalProperties: true
     Shot:
       type: object
       additionalProperties: true
     Error:
-      type: object
-      additionalProperties: true
-    DeleteResponse:
       type: object
       additionalProperties: true
   securitySchemes:
