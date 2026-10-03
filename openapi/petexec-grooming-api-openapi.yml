@@ -104,6 +104,9 @@ components:
     DeleteResponse:
       type: object
       additionalProperties: true
+    Employee:
+      type: object
+      additionalProperties: true
     Service:
       type: object
       additionalProperties: true
@@ -111,9 +114,6 @@ components:
       type: object
       additionalProperties: true
     Error:
-      type: object
-      additionalProperties: true
-    Employee:
       type: object
       additionalProperties: true
   parameters:

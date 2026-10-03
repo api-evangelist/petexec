@@ -89,6 +89,22 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  schemas:
+    DeleteResponse:
+      type: object
+      additionalProperties: true
+    BoardingPackage:
+      type: object
+      additionalProperties: true
+    Service:
+      type: object
+      additionalProperties: true
+    Reservation:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
   responses:
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
@@ -102,22 +118,6 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  schemas:
-    DeleteResponse:
-      type: object
-      additionalProperties: true
-    Service:
-      type: object
-      additionalProperties: true
-    Reservation:
-      type: object
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
-    BoardingPackage:
-      type: object
-      additionalProperties: true
   parameters:
     OwnerId:
       name: owner_id

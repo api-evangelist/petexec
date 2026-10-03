@@ -86,13 +86,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    CreditCard:
-      type: object
-      additionalProperties: true
     DeleteResponse:
       type: object
       additionalProperties: true
     Error:
+      type: object
+      additionalProperties: true
+    CreditCard:
       type: object
       additionalProperties: true
   responses:

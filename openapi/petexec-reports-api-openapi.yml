@@ -40,7 +40,7 @@ paths:
         schema:
           type: string
           enum:
-          - true
+          - 'yes'
           - 'no'
       responses:
         '200':
@@ -68,7 +68,7 @@ paths:
         schema:
           type: string
           enum:
-          - true
+          - 'yes'
           - 'no'
       responses:
         '200':
@@ -130,15 +130,14 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
-    EndDate:
-      name: end_date
-      in: path
-      required: true
-      description: yyyy-mm-dd
-      schema:
-        type: string
-        format: date
     StartDate:
       name: start_date
       in: path
@@ -147,13 +146,14 @@ components:
       schema:
         type: string
         format: date
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired Bearer token, or insufficient scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    EndDate:
+      name: end_date
+      in: path
+      required: true
+      description: yyyy-mm-dd
+      schema:
+        type: string
+        format: date
   schemas:
     Error:
       type: object

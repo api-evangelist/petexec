@@ -182,7 +182,29 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Reservation:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
   parameters:
+    StartDate:
+      name: start_date
+      in: path
+      required: true
+      description: yyyy-mm-dd
+      schema:
+        type: string
+        format: date
     EndDate:
       name: end_date
       in: path
@@ -198,28 +220,6 @@ components:
       description: The PetExec owner (pet parent) ID.
       schema:
         type: string
-    StartDate:
-      name: start_date
-      in: path
-      required: true
-      description: yyyy-mm-dd
-      schema:
-        type: string
-        format: date
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired Bearer token, or insufficient scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  schemas:
-    Reservation:
-      type: object
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

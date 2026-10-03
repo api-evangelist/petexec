@@ -125,13 +125,13 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Employee:
+      type: object
+      additionalProperties: true
     Error:
       type: object
       additionalProperties: true
     Location:
-      type: object
-      additionalProperties: true
-    Employee:
       type: object
       additionalProperties: true
   securitySchemes:

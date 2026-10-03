@@ -103,13 +103,6 @@ components:
       description: Number of entries per page.
       schema:
         type: integer
-    OwnerId:
-      name: owner_id
-      in: path
-      required: true
-      description: The PetExec owner (pet parent) ID.
-      schema:
-        type: string
     PageNumber:
       name: page_number
       in: path
@@ -117,6 +110,13 @@ components:
       description: Page number of search results.
       schema:
         type: integer
+    OwnerId:
+      name: owner_id
+      in: path
+      required: true
+      description: The PetExec owner (pet parent) ID.
+      schema:
+        type: string
   schemas:
     Error:
       type: object
