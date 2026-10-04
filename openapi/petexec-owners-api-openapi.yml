@@ -82,27 +82,18 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing, invalid, or expired Bearer token, or insufficient scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+  schemas:
+    Owner:
+      type: object
+      description: Field-level schema is not published by PetExec; shape inferred only from the fact that examples key on an owner ID and are requested under the owner_read/owner_update scopes.
+      properties:
+        ownerid:
+          type: string
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
   parameters:
-    DataPerPage:
-      name: data_per_page
-      in: path
-      required: true
-      description: Number of entries per page.
-      schema:
-        type: integer
     PageNumber:
       name: page_number
       in: path
@@ -117,17 +108,26 @@ components:
       description: The PetExec owner (pet parent) ID.
       schema:
         type: string
-  schemas:
-    Error:
-      type: object
-      additionalProperties: true
-    Owner:
-      type: object
-      description: Field-level schema is not published by PetExec; shape inferred only from the fact that examples key on an owner ID and are requested under the owner_read/owner_update scopes.
-      properties:
-        ownerid:
-          type: string
-      additionalProperties: true
+    DataPerPage:
+      name: data_per_page
+      in: path
+      required: true
+      description: Number of entries per page.
+      schema:
+        type: integer
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     bearerAuth:
       type: http

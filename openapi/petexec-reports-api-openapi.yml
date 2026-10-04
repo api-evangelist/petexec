@@ -138,16 +138,16 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   parameters:
-    StartDate:
-      name: start_date
+    EndDate:
+      name: end_date
       in: path
       required: true
       description: yyyy-mm-dd
       schema:
         type: string
         format: date
-    EndDate:
-      name: end_date
+    StartDate:
+      name: start_date
       in: path
       required: true
       description: yyyy-mm-dd
