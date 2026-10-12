@@ -1,0 +1,16 @@
+generated: '2026-10-12'
+method: none
+source:
+- https://zapier.com/apps/petexec/integrations
+- https://n8n.io/integrations/petexec/
+- https://composio.dev/toolkits/petexec
+- https://monid.ai/tools/petexec
+checked:
+- https://composio.dev/toolkits/petexec
+- https://monid.ai/tools/petexec
+- https://n8n.io/integrations/petexec/
+- https://zapier.com/apps/petexec/integrations
+summary: null
+marketplace_apps: []
+edges: []
+templates: []
