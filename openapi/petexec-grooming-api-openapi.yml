@@ -87,6 +87,35 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  schemas:
+    Employee:
+      type: object
+      additionalProperties: true
+    Reservation:
+      type: object
+      additionalProperties: true
+    Service:
+      type: object
+      additionalProperties: true
+    DeleteResponse:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     GroomingId:
       name: grooming_id
@@ -94,35 +123,6 @@ components:
       required: true
       schema:
         type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing, invalid, or expired Bearer token, or insufficient scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  schemas:
-    DeleteResponse:
-      type: object
-      additionalProperties: true
-    Employee:
-      type: object
-      additionalProperties: true
-    Reservation:
-      type: object
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
-    Service:
-      type: object
-      additionalProperties: true
   securitySchemes:
     bearerAuth:
       type: http

@@ -82,25 +82,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Owner:
-      type: object
-      description: Field-level schema is not published by PetExec; shape inferred only from the fact that examples key on an owner ID and are requested under the owner_read/owner_update scopes.
-      properties:
-        ownerid:
-          type: string
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
   parameters:
-    PageNumber:
-      name: page_number
-      in: path
-      required: true
-      description: Page number of search results.
-      schema:
-        type: integer
     OwnerId:
       name: owner_id
       in: path
@@ -115,15 +97,33 @@ components:
       description: Number of entries per page.
       schema:
         type: integer
+    PageNumber:
+      name: page_number
+      in: path
+      required: true
+      description: Page number of search results.
+      schema:
+        type: integer
+  schemas:
+    Owner:
+      type: object
+      description: Field-level schema is not published by PetExec; shape inferred only from the fact that examples key on an owner ID and are requested under the owner_read/owner_update scopes.
+      properties:
+        ownerid:
+          type: string
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

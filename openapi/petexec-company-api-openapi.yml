@@ -112,24 +112,24 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Location:
+    Employee:
       type: object
       additionalProperties: true
-    Employee:
+    Location:
       type: object
       additionalProperties: true
     Error:
       type: object
       additionalProperties: true
   responses:
-    NotFound:
-      description: The requested resource was not found.
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+    NotFound:
+      description: The requested resource was not found.
       content:
         application/json:
           schema:

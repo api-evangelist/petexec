@@ -76,29 +76,29 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  schemas:
+    DeleteResponse:
+      type: object
+      additionalProperties: true
+    Shot:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
   responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-  schemas:
-    Shot:
-      type: object
-      additionalProperties: true
-    DeleteResponse:
-      type: object
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     PetId:
       name: pet_id

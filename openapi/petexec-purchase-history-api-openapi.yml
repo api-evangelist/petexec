@@ -37,13 +37,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    PurchaseHistoryEntry:
-      type: object
-      additionalProperties: true
-    Error:
-      type: object
-      additionalProperties: true
   responses:
     Unauthorized:
       description: Missing, invalid, or expired Bearer token, or insufficient scope.
@@ -51,6 +44,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  schemas:
+    PurchaseHistoryEntry:
+      type: object
+      additionalProperties: true
+    Error:
+      type: object
+      additionalProperties: true
   parameters:
     OwnerId:
       name: owner_id

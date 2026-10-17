@@ -183,6 +183,14 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
+    EndDate:
+      name: end_date
+      in: path
+      required: true
+      description: yyyy-mm-dd
+      schema:
+        type: string
+        format: date
     OwnerId:
       name: owner_id
       in: path
@@ -192,14 +200,6 @@ components:
         type: string
     StartDate:
       name: start_date
-      in: path
-      required: true
-      description: yyyy-mm-dd
-      schema:
-        type: string
-        format: date
-    EndDate:
-      name: end_date
       in: path
       required: true
       description: yyyy-mm-dd

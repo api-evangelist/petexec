@@ -141,43 +141,8 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  parameters:
-    PageNumber:
-      name: page_number
-      in: path
-      required: true
-      description: Page number of search results.
-      schema:
-        type: integer
-    PetId:
-      name: pet_id
-      in: path
-      required: true
-      description: The PetExec pet ID.
-      schema:
-        type: string
-    DataPerPage:
-      name: data_per_page
-      in: path
-      required: true
-      description: Number of entries per page.
-      schema:
-        type: integer
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing, invalid, or expired Bearer token, or insufficient scope.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Vet:
+    Breed:
       type: object
       additionalProperties: true
     DeleteResponse:
@@ -192,12 +157,47 @@ components:
     PetType:
       type: object
       additionalProperties: true
-    Breed:
+    Vet:
       type: object
       additionalProperties: true
     Error:
       type: object
       additionalProperties: true
+  responses:
+    Unauthorized:
+      description: Missing, invalid, or expired Bearer token, or insufficient scope.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    DataPerPage:
+      name: data_per_page
+      in: path
+      required: true
+      description: Number of entries per page.
+      schema:
+        type: integer
+    PetId:
+      name: pet_id
+      in: path
+      required: true
+      description: The PetExec pet ID.
+      schema:
+        type: string
+    PageNumber:
+      name: page_number
+      in: path
+      required: true
+      description: Page number of search results.
+      schema:
+        type: integer
   securitySchemes:
     bearerAuth:
       type: http
