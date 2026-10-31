@@ -1,4 +1,4 @@
-# PetExec (petexec)
+# PetExec
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,169 +66,141 @@
 
 PetExec is cloud-based business management software for dog daycares, boarding facilities, groomers, and trainers - scheduling, an owner portal, payments, and reporting. PetExec publishes a real, documented OAuth2 (password grant) REST API for existing customers and their developers, with a public GitHub examples repository covering owners, pets, boarding, daycare, grooming, scheduled services, vaccinations, billing, and reports. Access requires an active PetExec account - client credentials are self-issued from Company Preferences > Misc. Settings > Maintain API Applications, then exchanged for a Bearer token via a scoped password grant. PetExec was acquired by Togetherwork in November 2024 and joined the Gingr / Revelation Pets pet-care product group; PetExec is no longer accepting new customers and is being migrated toward Gingr, but the documented API remains live for existing PetExec accounts as of this review.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/petexec/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/petexec/refs/heads/main/apis.yml)
+**Areas:** Pet Care · Boarding · Daycare · Grooming · Training · Business Management · Pet Business Software
 
-## Access model
+## PetExec on APIs.io
 
-This is **not** a self-serve public API with open signup. It is a real, technically documented REST API scoped to existing PetExec customers:
+Everything profiled for PetExec is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/petexec/](https://apis.io/providers/petexec/)** — or go straight to one of the APIs or properties below.
 
-- **Base URL:** `https://secure.petexec.net/api` (a `https://beta.petexec.net/api` environment appears in some of PetExec's own examples for the same paths)
-- **Auth:** OAuth2 Resource Owner Password Credentials (password) grant - `POST /token` with an `Authorization: Basic base64(client_id:client_secret)` header, plus `grant_type=password`, `username`, `password`, and a space-separated `scope` list (e.g. `owner_read owner_update`)
-- **Credentials:** Self-issued inside the PetExec console under **Company Preferences > Misc. Settings > Maintain API Applications**
-- **Interactive reference:** [https://secure.petexec.net/api/apidoc/index.html](https://secure.petexec.net/api/apidoc/index.html) (a JavaScript-rendered apidoc.js site with no machine-readable export)
-- **Primary technical source:** PetExec's own public GitHub examples repository, [PetExec/API-Examples](https://github.com/PetExec/API-Examples) (PHP-Guzzle and JavaScript), which is what every endpoint in this entry's `openapi/petexec-openapi.yml` was transcribed from
+### APIs (14)
 
-## Corporate context
+- [PetExec Authentication API](https://apis.io/apis/petexec/petexec-authentication-api/) — OAuth2 password-grant token issuance.
+- [PetExec Boarding API](https://apis.io/apis/petexec/petexec-boarding-api/) — Boarding reservations, packages, and services.
+- [PetExec Calendar API](https://apis.io/apis/petexec/petexec-calendar-api/) — Company-wide and per-owner reservation calendars by date range.
+- [PetExec Company API](https://apis.io/apis/petexec/petexec-company-api/) — Company locations, employees, lead sources, and preferences.
+- [PetExec Credit Cards API](https://apis.io/apis/petexec/petexec-credit-cards-api/) — Owner stored payment cards.
+- [PetExec Daycare API](https://apis.io/apis/petexec/petexec-daycare-api/) — Daycare reservations and services.
+- [PetExec Grooming API](https://apis.io/apis/petexec/petexec-grooming-api/) — Grooming reservations, groomers, and services.
+- [PetExec Owners API](https://apis.io/apis/petexec/petexec-owners-api/) — Owner (pet parent) account records and search.
+- [PetExec Pets API](https://apis.io/apis/petexec/petexec-pets-api/) — Pet profiles, pet types, breeds, and vets.
+- [PetExec Profile API](https://apis.io/apis/petexec/petexec-profile-api/) — The authenticated user's own profile and portal menu.
+- [PetExec Purchase History API](https://apis.io/apis/petexec/petexec-purchase-history-api/) — Owner purchase/transaction history.
+- [PetExec Reports API](https://apis.io/apis/petexec/petexec-reports-api/) — Billing and statistics reports.
+- [PetExec Scheduled Services API](https://apis.io/apis/petexec/petexec-scheduled-services-api/) — Scheduled-service reservations, types, and services.
+- [PetExec Vaccinations API](https://apis.io/apis/petexec/petexec-vaccinations-api/) — Pet vaccination (shot) records.
 
-PetExec was acquired by [Togetherwork](https://www.togetherwork.com/) in November 2024 and joined the Gingr / Revelation Pets pet-care product group. PetExec is **no longer accepting new customers** and Togetherwork has been actively migrating existing accounts to Gingr (migration webinars; some customers report an added ~1% payment gateway fee). The API documented here is published and referenced from petexec.net as of this review, but its long-term availability should be treated as uncertain given the ongoing Gingr migration.
+### Published properties
 
-## Tags
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- Pet Care
-- Boarding
-- Daycare
-- Grooming
-- Training
-- Business Management
-- Pet Business Software
+#### Agentic access (1)
 
-## Timestamps
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- **Created:** 2026-07-04
-- **Modified:** 2026-07-04
+- [Petexec Agentic Access](https://apis.io/agentic-access/petexec/petexec-agentic-access/)
 
-## APIs
+#### Collections (15)
 
-### PetExec Owners API
+Postman and Open Collection request collections.
 
-List and retrieve owner (pet parent) account records and run paginated keyword search across the owner database. Requires the `owner_read` OAuth2 scope.
+- [PetExec API](https://apis.io/collections/petexec/open-petexec/)
+- [PetExec Authentication API](https://apis.io/collections/petexec/open-petexec-authentication-api/)
+- [PetExec Authentication Boarding API](https://apis.io/collections/petexec/open-petexec-boarding-api/)
+- [PetExec Authentication Calendar API](https://apis.io/collections/petexec/open-petexec-calendar-api/)
+- [PetExec Authentication Company API](https://apis.io/collections/petexec/open-petexec-company-api/)
+- [PetExec Authentication Credit Cards API](https://apis.io/collections/petexec/open-petexec-credit-cards-api/)
+- [PetExec Authentication Daycare API](https://apis.io/collections/petexec/open-petexec-daycare-api/)
+- [PetExec Authentication Grooming API](https://apis.io/collections/petexec/open-petexec-grooming-api/)
+- [PetExec Authentication Owners API](https://apis.io/collections/petexec/open-petexec-owners-api/)
+- [PetExec Authentication Pets API](https://apis.io/collections/petexec/open-petexec-pets-api/)
+- [PetExec Authentication Profile API](https://apis.io/collections/petexec/open-petexec-profile-api/)
+- [PetExec Authentication Purchase History API](https://apis.io/collections/petexec/open-petexec-purchase-history-api/)
+- [PetExec Authentication Reports API](https://apis.io/collections/petexec/open-petexec-reports-api/)
+- [PetExec Authentication Scheduled Services API](https://apis.io/collections/petexec/open-petexec-scheduled-services-api/)
+- [PetExec Authentication Vaccinations API](https://apis.io/collections/petexec/open-petexec-vaccinations-api/)
 
-- **Human URL:** [https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner](https://github.com/PetExec/API-Examples/tree/master/JavaScript/Owner)
-- **Base URL:** `https://secure.petexec.net/api`
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://www.petexec.net/features/api-for-developers)
-- [API Reference](https://secure.petexec.net/api/apidoc/index.html)
-- [OpenAPI](openapi/petexec-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/petexec.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/petexec.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Petexec Authentication](https://apis.io/security/petexec/petexec-authentication/)
+- [Petexec Domain Security](https://apis.io/security/petexec/petexec-domain-security/)
 
-### PetExec Pets API
+#### Plans and pricing (1)
 
-Retrieve or delete an individual pet profile, list configured pet types and the breeds available for a type, search pets by keyword, and look up the facility's vet directory attached to pet records.
+Published plans, tiers and prices.
 
-- **Human URL:** [https://github.com/PetExec/API-Examples/tree/master/JavaScript/Pet](https://github.com/PetExec/API-Examples/tree/master/JavaScript/Pet)
-- **Base URL:** `https://secure.petexec.net/api`
+- [Petexec Plans Pricing](https://apis.io/plans/petexec/petexec-plans-pricing/)
 
-#### Properties
+#### Rate limits (1)
 
-- [Documentation](https://www.petexec.net/features/api-for-developers)
-- [API Reference](https://secure.petexec.net/api/apidoc/index.html)
-- [OpenAPI](openapi/petexec-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/petexec.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/petexec.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+Published request limits.
 
-### PetExec Reservations API
+- [Petexec Rate Limits](https://apis.io/rate-limits/petexec/petexec-rate-limits/)
 
-Retrieve or cancel a specific future boarding, daycare, grooming, or scheduled-service reservation, and look up an owner's active boarding packages.
+#### FinOps (1)
 
-- **Human URL:** [https://github.com/PetExec/API-Examples/tree/master/JavaScript/Boarding](https://github.com/PetExec/API-Examples/tree/master/JavaScript/Boarding)
-- **Base URL:** `https://secure.petexec.net/api`
+What the API costs to run, by operation.
 
-#### Properties
+- [Petexec Finops](https://apis.io/finops/petexec/petexec-finops/)
 
-- [Documentation](https://www.petexec.net/features/api-for-developers)
-- [API Reference](https://secure.petexec.net/api/apidoc/index.html)
-- [OpenAPI](openapi/petexec-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/petexec.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/petexec.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+## Where to find this API
 
-### PetExec Calendar API
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-Pull company-wide or single-owner boarding, daycare, grooming, and scheduled-service reservations for a given date range, for external calendar and scheduling integrations.
-
-- **Human URL:** [https://github.com/PetExec/API-Examples/tree/master/JavaScript/Calender](https://github.com/PetExec/API-Examples/tree/master/JavaScript/Calender)
-- **Base URL:** `https://secure.petexec.net/api`
-
-#### Properties
-
-- [Documentation](https://www.petexec.net/features/api-for-developers)
-- [API Reference](https://secure.petexec.net/api/apidoc/index.html)
-- [OpenAPI](openapi/petexec-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/petexec.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/petexec.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### PetExec Services API
-
-List the boarding, daycare, and grooming service catalog, the roster of company groomers, and scheduled-service types plus the individual services within each type.
-
-- **Human URL:** [https://github.com/PetExec/API-Examples/tree/master/JavaScript/Scheduled%20Services](https://github.com/PetExec/API-Examples/tree/master/JavaScript/Scheduled%20Services)
-- **Base URL:** `https://secure.petexec.net/api`
-
-#### Properties
-
-- [Documentation](https://www.petexec.net/features/api-for-developers)
-- [API Reference](https://secure.petexec.net/api/apidoc/index.html)
-- [OpenAPI](openapi/petexec-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/petexec.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/petexec.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### PetExec Vaccinations API
-
-Retrieve or delete an individual vaccination (shot) record and list the shots configured for a given pet type, supporting vaccine-compliance integrations.
-
-- **Human URL:** [https://github.com/PetExec/API-Examples/tree/master/JavaScript/Vaccinations](https://github.com/PetExec/API-Examples/tree/master/JavaScript/Vaccinations)
-- **Base URL:** `https://secure.petexec.net/api`
-
-#### Properties
-
-- [Documentation](https://www.petexec.net/features/api-for-developers)
-- [API Reference](https://secure.petexec.net/api/apidoc/index.html)
-- [OpenAPI](openapi/petexec-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/petexec.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/petexec.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### PetExec Billing & Reports API
-
-Pull an owner's purchase history and stored credit cards, and generate billing and statistics reports for a date range, optionally broken down by payment type or service.
-
-- **Human URL:** [https://github.com/PetExec/API-Examples/tree/master/JavaScript/Reports](https://github.com/PetExec/API-Examples/tree/master/JavaScript/Reports)
-- **Base URL:** `https://secure.petexec.net/api`
-
-#### Properties
-
-- [Documentation](https://www.petexec.net/features/api-for-developers)
-- [API Reference](https://secure.petexec.net/api/apidoc/index.html)
-- [OpenAPI](openapi/petexec-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/petexec.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/petexec.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### PetExec Company & Account API
-
-Read company-level configuration - locations, employees, lead sources ("how found"), and named preference values - plus the authenticated user's own profile and owner-portal menu.
-
-- **Human URL:** [https://github.com/PetExec/API-Examples/tree/master/JavaScript/Company](https://github.com/PetExec/API-Examples/tree/master/JavaScript/Company)
-- **Base URL:** `https://secure.petexec.net/api`
-
-#### Properties
-
-- [Documentation](https://www.petexec.net/features/api-for-developers)
-- [API Reference](https://secure.petexec.net/api/apidoc/index.html)
-- [OpenAPI](openapi/petexec-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/petexec.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/petexec.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/PetExec)
 - [Website](https://www.petexec.net/)
 - [Documentation](https://docs2.petexec.net/)
-- [Plans](plans/petexec-plans-pricing.yml)
-- [Rate Limits](rate-limits/petexec-rate-limits.yml)
-- [Fin Ops](finops/petexec-finops.yml)
+- [GitHub](https://github.com/PetExec)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.0** — emerging · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 47.7 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 28.6 |
+| Access clarity | 7.9 |
+
+**Agent readiness 17.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/petexec/](https://apis.io/providers/petexec/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for PetExec: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/petexec/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
